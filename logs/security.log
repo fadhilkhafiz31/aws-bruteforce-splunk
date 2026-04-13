@@ -4,3 +4,22 @@
 {"timestamp":"2026-03-24T14:59:33.576Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":"1","status":200}
 {"timestamp":"2026-04-09T01:49:30.436Z","event_type":"REGISTER_SUCCESS","endpoint":"/register","src_ip":"::1","username":"fadhil","user_id":6,"status":201}
 {"timestamp":"2026-04-09T01:53:45.580Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"fadhil","user_id":6,"role":"user","status":200}
+{"timestamp":"2026-04-12T09:53:55.172Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user123","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-12T10:00:13.009Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user123","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-12T10:00:44.998Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-12T10:00:51.465Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"admin","user_id":1,"status":200}
+{"timestamp":"2026-04-12T10:00:59.823Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user","status":401,"reason":"User not found"}
+{"timestamp":"2026-04-12T10:01:07.077Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user123","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-12T10:04:31.925Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user123","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-12T10:06:25.474Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user123","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-12T10:25:51.284Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"user123","user_id":2,"role":"user","status":200}
+{"timestamp":"2026-04-12T10:32:35.167Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"user123","user_id":2,"role":"user","status":200}
+{"timestamp":"2026-04-12T10:32:53.372Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"user123","user_id":2,"status":200}
+{"timestamp":"2026-04-12T10:33:00.595Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"admin","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-12T10:33:05.245Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-12T10:33:12.354Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"admin","user_id":1,"status":200}
+{"timestamp":"2026-04-12T10:36:20.299Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"user123","user_id":2,"role":"user","status":200}
+{"timestamp":"2026-04-12T10:37:08.861Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"user123","user_id":2,"status":200}
+{"timestamp":"2026-04-12T10:37:15.648Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-13T00:49:21.251Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"admin","user_id":1,"status":200}
+{"timestamp":"2026-04-13T00:53:36.634Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"user123","user_id":2,"role":"user","status":200}
