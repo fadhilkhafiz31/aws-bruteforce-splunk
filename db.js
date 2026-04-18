@@ -206,6 +206,30 @@ async function logSecurityEvent(event) {
 }
 
 
+// ══════════════════════════════════════════
+// TRANSACTIONS QUERIES
+// Fetching directly from data layer (secure isolation at API layer)
+// ══════════════════════════════════════════
+
+async function getAllTransactions() {
+  const [rows] = await pool.execute(
+    `SELECT t.*, u.id AS owner_uid 
+     FROM transactions t 
+     LEFT JOIN users u ON t.owner = u.username 
+     ORDER BY t.date DESC`
+  );
+  return rows;
+}
+
+async function getTransactionsByOwner(username) {
+  const [rows] = await pool.execute(
+    'SELECT * FROM transactions WHERE owner = ? ORDER BY date DESC',
+    [username]
+  );
+  return rows;
+}
+
+
 module.exports = {
   findUserByUsername,
   findUserById,
@@ -220,5 +244,7 @@ module.exports = {
   findClientById,
   findClientByIdAndSecret,
   logSecurityEvent,
+  getAllTransactions,
+  getTransactionsByOwner,
   pool
 };

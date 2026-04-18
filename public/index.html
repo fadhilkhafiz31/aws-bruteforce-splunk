@@ -1,1784 +1,2052 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SecureBankIsley — Online Banking Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy:      #0a1628;
-    --navy-mid:  #112240;
-    --navy-soft: #1a3558;
-    --gold:      #c9a84c;
-    --gold-light:#e8c96a;
-    --gold-dim:  #8a6f2e;
-    --white:     #f8f6f1;
-    --off-white: #ede9e0;
-    --muted:     #8a8f9e;
-    --danger:    #c0392b;
-    --success:   #1a7a45;
-    --border:    rgba(201,168,76,0.18);
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SecureBankIsley — Online Banking Portal</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg-body: #f4f6f8;
+      --bg-surface: #ffffff;
+      --bg-soft: #f8f9fa;
+      --primary: #de235b;
+      --primary-dim: #fdeef2;
+      --primary-dark: #b81d4b;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --surface-hover: rgba(0,0,0,0.03);
+      --input-bg: #ffffff;
+      --input-border: #cbd5e1;
+      --danger: #c0392b;
+      --success: #1a7a45;
+      --gold: #de235b;
+    }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    [data-theme="dark"] {
+      --bg-body: #0a1628;
+      --bg-surface: #112240;
+      --bg-soft: #1a3558;
+      --primary: #de235b;
+      --primary-dim: rgba(222, 35, 91, 0.15);
+      --primary-dark: #ff477e;
+      --text-main: #f8f6f1;
+      --text-muted: #8a8f9e;
+      --border: rgba(222, 35, 91, 0.2);
+      --surface-hover: rgba(255,255,255,0.04);
+      --input-bg: rgba(255,255,255,0.04);
+      --input-border: var(--input-border);
+      --gold: #de235b;
+    }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--navy);
-    color: var(--white);
-    min-height: 100vh;
-    display: flex;
-  }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  /* ═══════════════════════════
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-body);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* ═══════════════════════════
      LOGIN SCREEN
   ═══════════════════════════ */
-  #login-screen {
-    display: flex;
-    width: 100%;
-    min-height: 100vh;
-  }
+    #login-screen {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+    }
 
-  .login-left {
-    flex: 1;
-    background: var(--navy);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 4rem 5rem;
-    position: relative;
-    overflow: hidden;
-  }
+    .login-left {
+      flex: 1;
+      background: var(--bg-body);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 4rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
 
-  .login-left::before {
-    content: '';
-    position: absolute;
-    top: -120px; left: -120px;
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
-    pointer-events: none;
-  }
+    .login-left::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: -120px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--primary-dim) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-  .login-left::after {
-    content: '';
-    position: absolute;
-    bottom: -80px; right: -80px;
-    width: 350px; height: 350px;
-    background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%);
-    pointer-events: none;
-  }
+    .login-left::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      right: -80px;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, var(--primary-dim) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-  .bank-wordmark {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-    margin-bottom: 4rem;
-  }
+    .bank-wordmark {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 4rem;
+    }
 
-  .bank-icon {
-    width: 44px; height: 44px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-dim));
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.3rem;
-    box-shadow: 0 4px 16px rgba(201,168,76,0.3);
-  }
+    .bank-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      box-shadow: 0 4px 16px var(--primary-dim);
+    }
 
-  .bank-name {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.5rem;
-    color: var(--white);
-    letter-spacing: 0.02em;
-  }
+    .bank-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: var(--text-main);
+      letter-spacing: 0.02em;
+    }
 
-  .bank-name span { color: var(--gold); }
+    .bank-name span {
+      color: var(--gold);
+    }
 
-  .hero-headline {
-    font-family: 'DM Serif Display', serif;
-    font-size: 3.2rem;
-    line-height: 1.2;
-    color: var(--white);
-    margin-bottom: 1.5rem;
-    max-width: 480px;
-  }
+    .hero-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.2rem;
+      line-height: 1.2;
+      color: var(--text-main);
+      margin-bottom: 1.5rem;
+      max-width: 480px;
+    }
 
-  .hero-headline em {
-    font-style: italic;
-    color: var(--gold);
-  }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--gold);
+    }
 
-  .hero-sub {
-    font-size: 0.95rem;
-    color: var(--muted);
-    line-height: 1.7;
-    max-width: 400px;
-    margin-bottom: 3rem;
-  }
+    .hero-sub {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 400px;
+      margin-bottom: 3rem;
+    }
 
-  .security-badges {
-    display: flex;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-  }
+    .security-badges {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
 
-  .badge {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--muted);
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 0.4rem 0.85rem;
-  }
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted);
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.4rem 0.85rem;
+    }
 
-  .badge-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--gold);
-  }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
 
-  /* Decorative grid lines */
-  .grid-lines {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-    opacity: 0.04;
-  }
+    /* Decorative grid lines */
+    .grid-lines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.04;
+    }
 
-  .grid-lines::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(var(--gold) 1px, transparent 1px),
-      linear-gradient(90deg, var(--gold) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
+    .grid-lines::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--gold) 1px, transparent 1px),
+        linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
 
-  /* LOGIN PANEL */
-  .login-right {
-    width: 480px;
-    background: var(--navy-mid);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 3rem 3rem;
-    border-left: 1px solid var(--border);
-    position: relative;
-  }
+    /* LOGIN PANEL */
+    .login-right {
+      width: 480px;
+      background: var(--bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 3rem;
+      border-left: 1px solid var(--border);
+      position: relative;
+    }
 
-  .login-panel {
-    width: 100%;
-    max-width: 360px;
-    animation: fadeUp 0.5s ease;
-  }
+    .login-panel {
+      width: 100%;
+      max-width: 360px;
+      animation: fadeUp 0.5s ease;
+    }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
 
-  .panel-header {
-    margin-bottom: 2.25rem;
-  }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-  .panel-eyebrow {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.6rem;
-  }
+    .panel-header {
+      margin-bottom: 2.25rem;
+    }
 
-  .panel-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2rem;
-    color: var(--white);
-    line-height: 1.2;
-  }
+    .panel-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
 
-  .panel-subtitle {
-    font-size: 0.82rem;
-    color: var(--muted);
-    margin-top: 0.4rem;
-  }
+    .panel-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
 
-  .divider-line {
-    height: 1px;
-    background: var(--border);
-    margin: 1.75rem 0;
-  }
+    .panel-subtitle {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
 
-  .field-group {
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-    margin-bottom: 1.5rem;
-  }
+    .divider-line {
+      height: 1px;
+      background: var(--border);
+      margin: 1.75rem 0;
+    }
 
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
 
-  .field-label {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
 
-  .field-input {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.875rem;
-    color: var(--white);
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px;
-    padding: 0.8rem 1rem;
-    width: 100%;
-    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
-  }
+    .field-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
 
-  .field-input::placeholder { color: rgba(255,255,255,0.2); }
+    .field-input {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      color: var(--text-main);
+      background: var(--surface-hover);
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      width: 100%;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
 
-  .field-input:focus {
-    outline: none;
-    border-color: var(--gold);
-    background: rgba(201,168,76,0.05);
-    box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
-  }
+    .field-input::placeholder {
+      color: var(--text-muted);
+    }
 
-  .error-msg {
-    display: none;
-    font-size: 0.78rem;
-    color: #e74c3c;
-    background: rgba(199,57,47,0.1);
-    border: 1px solid rgba(199,57,47,0.25);
-    border-radius: 6px;
-    padding: 0.6rem 0.85rem;
-    margin-bottom: 1rem;
-  }
+    .field-input:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: var(--primary-dim);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
+    }
 
-  .error-msg.visible { display: block; }
+    .error-msg {
+      display: none;
+      font-size: 0.78rem;
+      color: #e74c3c;
+      background: rgba(199, 57, 47, 0.1);
+      border: 1px solid rgba(199, 57, 47, 0.25);
+      border-radius: 6px;
+      padding: 0.6rem 0.85rem;
+      margin-bottom: 1rem;
+    }
 
-  .btn-signin {
-    width: 100%;
-    background: linear-gradient(135deg, var(--gold), var(--gold-dim));
-    color: var(--navy);
-    border: none;
-    padding: 0.9rem;
-    border-radius: 8px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    letter-spacing: 0.02em;
-    transition: opacity 0.2s, transform 0.1s, box-shadow 0.2s;
-    box-shadow: 0 4px 20px rgba(201,168,76,0.25);
-  }
+    .error-msg.visible {
+      display: block;
+    }
 
-  .btn-signin:hover {
-    opacity: 0.92;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 24px rgba(201,168,76,0.35);
-  }
+    .btn-signin {
+      width: 100%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+      color: var(--bg-body);
+      border: none;
+      padding: 0.9rem;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: opacity 0.2s, transform 0.1s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px var(--primary-dim);
+    }
 
-  .btn-signin:active { transform: translateY(0); }
-  .btn-signin:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-signin:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px var(--primary-dim);
+    }
 
-  .login-footer {
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border);
-    text-align: center;
-  }
+    .btn-signin:active {
+      transform: translateY(0);
+    }
 
-  .security-note {
-    font-size: 0.72rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
+    .btn-signin:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
 
-  .security-note strong { color: rgba(255,255,255,0.45); }
+    .login-footer {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
 
-  /* ═══════════════════════════
+    .security-note {
+      font-size: 0.72rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .security-note strong {
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    /* ═══════════════════════════
      DASHBOARD
   ═══════════════════════════ */
-  #dashboard-screen { display: none; width: 100%; }
-  #dashboard-screen.visible { display: flex; }
-
-  /* SIDEBAR */
-  .sidebar {
-    width: 260px;
-    min-height: 100vh;
-    background: var(--navy-mid);
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-  }
-
-  .sidebar-header {
-    padding: 1.75rem 1.5rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .sidebar-bank {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .sidebar-bank-icon {
-    width: 36px; height: 36px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-dim));
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1rem;
-  }
-
-  .sidebar-bank-name {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.1rem;
-    color: var(--white);
-  }
-
-  .sidebar-bank-name span { color: var(--gold); }
-
-  .user-card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 0.9rem 1rem;
-  }
-
-  .user-card-top {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-  }
-
-  .user-avatar {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--gold-dim), var(--navy-soft));
-    border: 2px solid var(--gold);
-    color: var(--white);
-    font-weight: 700;
-    font-size: 0.85rem;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .user-info { flex: 1; min-width: 0; }
-
-  .user-name {
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--white);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .user-role {
-    font-size: 0.7rem;
-    color: var(--gold);
-    margin-top: 0.1rem;
-  }
-
-  .user-status {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.68rem;
-    color: var(--muted);
-    margin-top: 0.6rem;
-  }
-
-  .status-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #27ae60;
-    flex-shrink: 0;
-  }
-
-  /* NAV */
-  .sidebar-nav {
-    padding: 1rem 0;
-    flex: 1;
-  }
-
-  .nav-section-label {
-    font-size: 0.62rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.2);
-    padding: 0.75rem 1.5rem 0.35rem;
-  }
-
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.7rem 1.5rem;
-    font-size: 0.84rem;
-    font-weight: 400;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.15s;
-    text-decoration: none;
-    border-left: 2px solid transparent;
-    position: relative;
-  }
-
-  .nav-item:hover {
-    color: var(--white);
-    background: rgba(255,255,255,0.04);
-  }
-
-  .nav-item.active {
-    color: var(--gold);
-    background: rgba(201,168,76,0.07);
-    border-left-color: var(--gold);
-    font-weight: 500;
-  }
-
-  .nav-icon {
-    font-size: 0.95rem;
-    width: 18px;
-    text-align: center;
-    flex-shrink: 0;
-  }
-
-  .nav-tag {
-    margin-left: auto;
-    font-size: 0.65rem;
-    font-weight: 600;
-    background: rgba(201,168,76,0.15);
-    color: var(--gold);
-    border-radius: 10px;
-    padding: 0.15rem 0.5rem;
-  }
-
-  .sidebar-footer {
-    padding: 1rem 1.5rem;
-    border-top: 1px solid var(--border);
-  }
-
-  .logout-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 0.82rem;
-    color: var(--muted);
-    cursor: pointer;
-    padding: 0.5rem 0;
-    transition: color 0.15s;
-    background: none;
-    border: none;
-    font-family: inherit;
-    width: 100%;
-  }
-
-  .logout-btn:hover { color: #e74c3c; }
-
-  /* MAIN CONTENT */
-  .main {
-    flex: 1;
-    background: var(--navy);
-    overflow-x: hidden;
-  }
-
-  .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.25rem 2.5rem;
-    border-bottom: 1px solid var(--border);
-    background: var(--navy);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-
-  .topbar-breadcrumb {
-    font-size: 0.8rem;
-    color: var(--muted);
-  }
-
-  .topbar-breadcrumb span {
-    color: var(--white);
-    font-weight: 500;
-  }
-
-  .topbar-right {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-  }
-
-  .topbar-time {
-    font-size: 0.75rem;
-    color: var(--muted);
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 0.35rem 0.75rem;
-  }
-
-  .topbar-alert {
-    font-size: 0.72rem;
-    color: var(--gold);
-    background: rgba(201,168,76,0.08);
-    border: 1px solid rgba(201,168,76,0.2);
-    border-radius: 6px;
-    padding: 0.35rem 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  .page-content {
-    padding: 2rem 2.5rem;
-  }
-
-  .page-view { display: none; }
-  .page-view.active { display: block; animation: fadeUp 0.25s ease; }
-
-  /* PAGE HEADER */
-  .page-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-bottom: 1.75rem;
-    gap: 1rem;
-  }
-
-  .page-title-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-    min-width: 0;
-  }
-
-  .page-eyebrow {
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.3rem;
-  }
-
-  .page-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.75rem;
-    color: var(--white);
-  }
-
-  /* CARDS */
-  .card {
-    background: var(--navy-mid);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-
-  .card-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid var(--border);
-    gap: 1rem;
-  }
-
-  .card-title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--white);
-  }
-
-  .card-body {
-    padding: 1.5rem;
-  }
-
-  /* TABS */
-  .tabs {
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid var(--border);
-    padding: 0 1.5rem;
-  }
-
-  .tab {
-    padding: 0.75rem 1rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--muted);
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    margin-bottom: -1px;
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-
-  .tab:hover { color: var(--white); }
-
-  .tab.active {
-    color: var(--gold);
-    border-bottom-color: var(--gold);
-    font-weight: 600;
-  }
-
-  /* CONTENT GRID */
-  .content-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-    gap: 1.1rem;
-    padding: 1.5rem;
-  }
-
-  /* NOTICE CARD */
-  .notice-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.25rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .notice-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 100%;
-    background: var(--gold);
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-
-  .notice-card:hover {
-    border-color: rgba(201,168,76,0.35);
-    background: rgba(201,168,76,0.04);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-  }
-
-  .notice-card:hover::before { opacity: 1; }
-
-  .notice-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 0.2rem 0.6rem;
-    border-radius: 4px;
-    margin-bottom: 0.85rem;
-  }
-
-  .notice-badge.active   { background: rgba(26,122,69,0.15);  color: #2ecc71; border: 1px solid rgba(46,204,113,0.2); }
-  .notice-badge.pending  { background: rgba(241,196,15,0.1);  color: #f1c40f; border: 1px solid rgba(241,196,15,0.2); }
-  .notice-badge.rejected { background: rgba(192,57,43,0.1);   color: #e74c3c; border: 1px solid rgba(231,76,60,0.2);  }
-  .notice-badge.expired  { background: rgba(255,255,255,0.05);color: var(--muted); border: 1px solid var(--border);  }
-  .notice-badge.draft    { background: rgba(52,152,219,0.1);  color: #3498db; border: 1px solid rgba(52,152,219,0.2);}
-
-  .notice-title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--white);
-    line-height: 1.4;
-    margin-bottom: 0.5rem;
-  }
-
-  .notice-desc {
-    font-size: 0.78rem;
-    color: var(--muted);
-    line-height: 1.5;
-    margin-bottom: 1rem;
-  }
-
-  .notice-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    margin-bottom: 1rem;
-  }
-
-  .meta-row {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.73rem;
-    color: var(--muted);
-  }
-
-  .meta-icon { font-size: 0.75rem; width: 14px; text-align: center; opacity: 0.6; }
-
-  .notice-footer {
-    padding-top: 0.85rem;
-    border-top: 1px solid var(--border);
-    font-size: 0.72rem;
-    color: rgba(255,255,255,0.3);
-    line-height: 1.6;
-  }
-
-  /* EMPTY STATE */
-  .empty-state {
-    display: none;
-    text-align: center;
-    padding: 4rem 1rem;
-  }
-
-  .empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.4; }
-  .empty-text { font-size: 0.85rem; color: var(--muted); }
-
-  /* ANNOUNCEMENT DETAIL */
-  .back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.78rem;
-    color: var(--muted);
-    cursor: pointer;
-    margin-bottom: 1.25rem;
-    transition: color 0.15s;
-    background: none;
-    border: none;
-    font-family: inherit;
-    padding: 0;
-  }
-
-  .back-btn:hover { color: var(--gold); }
-
-  .detail-title-large {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.4rem;
-    color: var(--white);
-    line-height: 1.4;
-    margin-bottom: 1.75rem;
-  }
-
-  .detail-fields {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .detail-field {
-    display: flex;
-    align-items: flex-start;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--border);
-    gap: 1.5rem;
-  }
-
-  .detail-field:last-child { border-bottom: none; }
-
-  .detail-field-label {
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    width: 100px;
-    flex-shrink: 0;
-    padding-top: 2px;
-  }
-
-  .detail-field-value {
-    font-size: 0.85rem;
-    color: var(--white);
-    line-height: 1.5;
-  }
-
-  .status-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 0.3rem 0.75rem;
-    border-radius: 20px;
-    background: rgba(26,122,69,0.15);
-    color: #2ecc71;
-    border: 1px solid rgba(46,204,113,0.2);
-  }
-
-  .status-pill::before {
-    content: '';
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: #2ecc71;
-  }
-
-  /* FORM ELEMENTS */
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    margin-bottom: 2rem;
-  }
-
-  .form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .form-label {
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .form-input,
-  .form-textarea {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.875rem;
-    color: var(--white);
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px;
-    padding: 0.8rem 1rem;
-    width: 100%;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    resize: none;
-    line-height: 1.55;
-  }
-
-  .form-input::placeholder,
-  .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
-
-  .form-input:focus,
-  .form-textarea:focus {
-    outline: none;
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
-    background: rgba(201,168,76,0.03);
-  }
-
-  .form-input:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-
-  .form-hint {
-    font-size: 0.68rem;
-    color: rgba(255,255,255,0.2);
-    margin-top: 0.2rem;
-  }
-
-  .form-textarea { min-height: 110px; }
-
-  .form-footer {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 0.75rem;
-    padding-top: 1.25rem;
-    border-top: 1px solid var(--border);
-  }
-
-  /* BUTTONS */
-  .btn-primary {
-    background: linear-gradient(135deg, var(--gold), var(--gold-dim));
-    color: var(--navy);
-    border: none;
-    padding: 0.65rem 1.5rem;
-    border-radius: 7px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.2s, transform 0.1s;
-    letter-spacing: 0.01em;
-  }
-
-  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
-  .btn-primary:active { transform: translateY(0); }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--gold);
-    border: 1px solid rgba(201,168,76,0.35);
-    padding: 0.65rem 1.5rem;
-    border-radius: 7px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
-  }
-
-  .btn-ghost:hover {
-    background: rgba(201,168,76,0.07);
-    border-color: var(--gold);
-  }
-
-  /* MODAL */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(4px);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .modal-overlay.open { display: flex; }
-
-  .modal-box {
-    background: var(--navy-mid);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 2rem;
-    width: 100%;
-    max-width: 380px;
-    box-shadow: 0 32px 80px rgba(0,0,0,0.5);
-    animation: popIn 0.22s ease;
-    text-align: center;
-  }
-
-  @keyframes popIn {
-    from { opacity: 0; transform: scale(0.92) translateY(10px); }
-    to   { opacity: 1; transform: scale(1) translateY(0); }
-  }
-
-  .modal-icon { font-size: 2.2rem; margin-bottom: 0.85rem; }
-
-  .modal-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.2rem;
-    color: var(--white);
-    margin-bottom: 0.6rem;
-  }
-
-  .modal-msg {
-    font-size: 0.82rem;
-    color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: 1.75rem;
-  }
-
-  .modal-actions {
-    display: flex;
-    gap: 0.75rem;
-    justify-content: center;
-  }
-
-  /* GOSSIP / EVENT PLACEHOLDERS */
-  .coming-soon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 5rem 2rem;
-    text-align: center;
-  }
-
-  .coming-soon-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.3; }
-
-  .coming-soon-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.4rem;
-    color: rgba(255,255,255,0.3);
-    margin-bottom: 0.5rem;
-  }
-
-  .coming-soon-sub {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.15);
-  }
-
-  /* CLOCK update */
-  #topbar-clock { font-variant-numeric: tabular-nums; }
-</style>
+    #dashboard-screen {
+      display: none;
+      width: 100%;
+    }
+
+    #dashboard-screen.visible {
+      display: flex;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px;
+      min-height: 100vh;
+      background: var(--bg-surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .sidebar-header {
+      padding: 1.75rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-bank {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-bank-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .sidebar-bank-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: var(--text-main);
+    }
+
+    .sidebar-bank-name span {
+      color: var(--gold);
+    }
+
+    .user-card {
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+    }
+
+    .user-card-top {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-dim), var(--bg-soft));
+      border: 2px solid var(--gold);
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .user-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .user-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .user-role {
+      font-size: 0.7rem;
+      color: var(--gold);
+      margin-top: 0.1rem;
+    }
+
+    .user-status {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 0.6rem;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #27ae60;
+      flex-shrink: 0;
+    }
+
+    /* NAV */
+    .sidebar-nav {
+      padding: 1rem 0;
+      flex: 1;
+    }
+
+    .nav-section-label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0.75rem 1.5rem 0.35rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.7rem 1.5rem;
+      font-size: 0.84rem;
+      font-weight: 400;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      text-decoration: none;
+      border-left: 2px solid transparent;
+      position: relative;
+    }
+
+    .nav-item:hover {
+      color: var(--text-main);
+      background: var(--surface-hover);
+    }
+
+    .nav-item.active {
+      color: var(--gold);
+      background: var(--primary-dim);
+      border-left-color: var(--gold);
+      font-weight: 500;
+    }
+
+    .nav-icon {
+      font-size: 0.95rem;
+      width: 18px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .nav-tag {
+      margin-left: auto;
+      font-size: 0.65rem;
+      font-weight: 600;
+      background: var(--primary-dim);
+      color: var(--gold);
+      border-radius: 10px;
+      padding: 0.15rem 0.5rem;
+    }
+
+    .sidebar-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .logout-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0.5rem 0;
+      transition: color 0.15s;
+      background: none;
+      border: none;
+      font-family: inherit;
+      width: 100%;
+    }
+
+    .logout-btn:hover {
+      color: #e74c3c;
+    }
+
+    /* MAIN CONTENT */
+    .main {
+      flex: 1;
+      background: var(--bg-body);
+      overflow-x: hidden;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-body);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .topbar-breadcrumb {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .topbar-breadcrumb span {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .topbar-time {
+      font-size: 0.75rem;
+      color: var(--muted);
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.35rem 0.75rem;
+    }
+
+    .topbar-alert {
+      font-size: 0.72rem;
+      color: var(--gold);
+      background: var(--primary-dim);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.35rem 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .page-content {
+      padding: 2rem 2.5rem;
+    }
+
+    .page-view {
+      display: none;
+    }
+
+    .page-view.active {
+      display: block;
+      animation: fadeUp 0.25s ease;
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 1.75rem;
+      gap: 1rem;
+    }
+
+    .page-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      min-width: 0;
+    }
+
+    .page-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .page-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.75rem;
+      color: var(--text-main);
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      gap: 1rem;
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    /* TABS */
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+    }
+
+    .tab {
+      padding: 0.75rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .tab:hover {
+      color: var(--text-main);
+    }
+
+    .tab.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* CONTENT GRID */
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.1rem;
+      padding: 1.5rem;
+    }
+
+    /* NOTICE CARD */
+    .notice-card {
+      background: var(--surface-hover);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .notice-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--gold);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .notice-card:hover {
+      border-color: var(--primary-dim);
+      background: var(--surface-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .notice-card:hover::before {
+      opacity: 1;
+    }
+
+    .notice-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 0.85rem;
+    }
+
+    .notice-badge.active {
+      background: rgba(26, 122, 69, 0.15);
+      color: #2ecc71;
+      border: 1px solid rgba(46, 204, 113, 0.2);
+    }
+
+    .notice-badge.pending {
+      background: rgba(241, 196, 15, 0.1);
+      color: #f1c40f;
+      border: 1px solid rgba(241, 196, 15, 0.2);
+    }
+
+    .notice-badge.rejected {
+      background: rgba(192, 57, 43, 0.1);
+      color: #e74c3c;
+      border: 1px solid rgba(231, 76, 60, 0.2);
+    }
+
+    .notice-badge.expired {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .notice-badge.draft {
+      background: rgba(52, 152, 219, 0.1);
+      color: #3498db;
+      border: 1px solid rgba(52, 152, 219, 0.2);
+    }
+
+    .notice-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.4;
+      margin-bottom: 0.5rem;
+    }
+
+    .notice-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .notice-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.73rem;
+      color: var(--muted);
+    }
+
+    .meta-icon {
+      font-size: 0.75rem;
+      width: 14px;
+      text-align: center;
+      opacity: 0.6;
+    }
+
+    .notice-footer {
+      padding-top: 0.85rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.3);
+      line-height: 1.6;
+    }
+
+    /* EMPTY STATE */
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 4rem 1rem;
+    }
+
+    .empty-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      opacity: 0.4;
+    }
+
+    .empty-text {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* ANNOUNCEMENT DETAIL */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      cursor: pointer;
+      margin-bottom: 1.25rem;
+      transition: color 0.15s;
+      background: none;
+      border: none;
+      font-family: inherit;
+      padding: 0;
+    }
+
+    .back-btn:hover {
+      color: var(--gold);
+    }
+
+    .detail-title-large {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: var(--text-main);
+      line-height: 1.4;
+      margin-bottom: 1.75rem;
+    }
+
+    .detail-fields {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .detail-field {
+      display: flex;
+      align-items: flex-start;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      gap: 1.5rem;
+    }
+
+    .detail-field:last-child {
+      border-bottom: none;
+    }
+
+    .detail-field-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      width: 100px;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .detail-field-value {
+      font-size: 0.85rem;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      background: rgba(26, 122, 69, 0.15);
+      color: #2ecc71;
+      border: 1px solid rgba(46, 204, 113, 0.2);
+    }
+
+    .status-pill::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #2ecc71;
+    }
+
+    /* FORM ELEMENTS */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .form-input,
+    .form-textarea {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.875rem;
+      color: var(--text-main);
+      background: var(--surface-hover);
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      width: 100%;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: none;
+      line-height: 1.55;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
+      background: rgba(201, 168, 76, 0.03);
+    }
+
+    .form-input:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .form-hint {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .form-textarea {
+      min-height: 110px;
+    }
+
+    .form-footer {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.75rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* BUTTONS */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+      color: var(--bg-body);
+      border: none;
+      padding: 0.65rem 1.5rem;
+      border-radius: 7px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid var(--primary-dim);
+      padding: 0.65rem 1.5rem;
+      border-radius: 7px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .btn-ghost:hover {
+      background: var(--primary-dim);
+      border-color: var(--gold);
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+      animation: popIn 0.22s ease;
+      text-align: center;
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.92) translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .modal-icon {
+      font-size: 2.2rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .modal-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      color: var(--text-main);
+      margin-bottom: 0.6rem;
+    }
+
+    .modal-msg {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.75rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+    }
+
+    /* GOSSIP / EVENT PLACEHOLDERS */
+    .coming-soon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .coming-soon-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.3;
+    }
+
+    .coming-soon-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: rgba(255, 255, 255, 0.3);
+      margin-bottom: 0.5rem;
+    }
+
+    .coming-soon-sub {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* CLOCK update */
+    #topbar-clock {
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
 </head>
-<body>
 
-<!-- ═══════════════════════════
+<body data-theme="light">
+
+  <!-- ═══════════════════════════
      LOGIN SCREEN
 ═══════════════════════════ -->
-<div id="login-screen">
+  <div id="login-screen">
 
-  <!-- LEFT PANEL -->
-  <div class="login-left">
-    <div class="grid-lines"></div>
+    <!-- LEFT PANEL -->
+    <div class="login-left">
+      <div class="grid-lines"></div>
 
-    <div class="bank-wordmark">
-      <div class="bank-icon">🏦</div>
-      <div class="bank-name">Secure<span>Bank</span></div>
+      <div class="bank-wordmark">
+        <div class="bank-icon">🏦</div>
+        <div class="bank-name">Secure<span>Bank</span></div>
+      </div>
+
+      <h1 class="hero-headline">
+        Banking built for the<br><em>digital age.</em>
+      </h1>
+
+      <p class="hero-sub">
+        Enterprise-grade security with real-time fraud detection.
+        Every session monitored. Every transaction protected.
+      </p>
+
+      <div class="security-badges">
+        <div class="badge">
+          <div class="badge-dot"></div> 256-bit AES Encryption
+        </div>
+        <div class="badge">
+          <div class="badge-dot"></div> OAuth 2.0 Secured
+        </div>
+        <div class="badge">
+          <div class="badge-dot"></div> 24/7 SIEM Monitoring
+        </div>
+        <div class="badge">
+          <div class="badge-dot"></div> Zero Trust Architecture
+        </div>
+      </div>
     </div>
 
-    <h1 class="hero-headline">
-      Banking built for the<br><em>digital age.</em>
-    </h1>
+    <!-- RIGHT PANEL -->
+    <div class="login-right">
+      <div class="login-panel">
+        <div class="panel-header">
+          <div class="panel-eyebrow">Secure Access Portal</div>
+          <div class="panel-title">Sign in to<br>your account</div>
+          <div class="panel-subtitle">Authorized personnel only</div>
+        </div>
 
-    <p class="hero-sub">
-      Enterprise-grade security with real-time fraud detection.
-      Every session monitored. Every transaction protected.
-    </p>
+        <div class="divider-line"></div>
 
-    <div class="security-badges">
-      <div class="badge"><div class="badge-dot"></div> 256-bit AES Encryption</div>
-      <div class="badge"><div class="badge-dot"></div> OAuth 2.0 Secured</div>
-      <div class="badge"><div class="badge-dot"></div> 24/7 SIEM Monitoring</div>
-      <div class="badge"><div class="badge-dot"></div> Zero Trust Architecture</div>
+        <div class="field-group">
+          <div class="field">
+            <label class="field-label">Account Username</label>
+            <input class="field-input" id="login-username" type="text" placeholder="Enter your username"
+              onkeydown="if(event.key==='Enter') doLogin()">
+          </div>
+          <div class="field">
+            <label class="field-label">Password</label>
+            <input class="field-input" id="login-password" type="password" placeholder="Enter your password"
+              onkeydown="if(event.key==='Enter') doLogin()">
+          </div>
+        </div>
+
+        <div class="error-msg" id="login-error">⚠ Authentication failed. Please verify your credentials.</div>
+
+        <button class="btn-signin" onclick="doLogin()" id="signin-btn">Sign In Securely</button>
+
+        <div class="login-footer">
+          <div class="security-note">
+            <strong>🔒 This session is encrypted and monitored.<br></strong>
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
 
-  <!-- RIGHT PANEL -->
-  <div class="login-right">
-    <div class="login-panel">
-      <div class="panel-header">
-        <div class="panel-eyebrow">Secure Access Portal</div>
-        <div class="panel-title">Sign in to<br>your account</div>
-        <div class="panel-subtitle">Authorized personnel only</div>
-      </div>
-
-      <div class="divider-line"></div>
-
-      <div class="field-group">
-        <div class="field">
-          <label class="field-label">Account Username</label>
-          <input class="field-input" id="login-username" type="text"
-            placeholder="Enter your username"
-            onkeydown="if(event.key==='Enter') doLogin()">
-        </div>
-        <div class="field">
-          <label class="field-label">Password</label>
-          <input class="field-input" id="login-password" type="password"
-            placeholder="Enter your password"
-            onkeydown="if(event.key==='Enter') doLogin()">
-        </div>
-      </div>
-
-      <div class="error-msg" id="login-error">⚠ Authentication failed. Please verify your credentials.</div>
-
-      <button class="btn-signin" onclick="doLogin()" id="signin-btn">Sign In Securely</button>
-
-      <div class="login-footer">
-        <div class="security-note">
-          <strong>🔒 This session is encrypted and monitored.<br></strong>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- ═══════════════════════════
+  <!-- ═══════════════════════════
      DASHBOARD SCREEN
 ═══════════════════════════ -->
-<div id="dashboard-screen">
+  <div id="dashboard-screen">
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-bank">
-        <div class="sidebar-bank-icon">🏦</div>
-        <div class="sidebar-bank-name">Secure<span>Bank</span></div>
-      </div>
-      <div class="user-card">
-        <div class="user-card-top">
-          <div class="user-avatar" id="sb-avatar">A</div>
-          <div class="user-info">
-            <div class="user-name" id="sb-displayname">Admin</div>
-            <div class="user-role">Branch Administrator</div>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-bank">
+          <div class="sidebar-bank-icon">🏦</div>
+          <div class="sidebar-bank-name">Secure <span>Bank </span>Isley</div>
+        </div>
+        <div class="user-card">
+          <div class="user-card-top">
+            <div class="user-avatar" id="sb-avatar">A</div>
+            <div class="user-info">
+              <div class="user-name" id="sb-displayname">Admin</div>
+              <div class="user-role" id="sb-role">Branch Administrator</div>
+            </div>
+          </div>
+          <div class="user-status">
+            <div class="status-dot"></div>
+            Active Session
           </div>
         </div>
-        <div class="user-status">
-          <div class="status-dot"></div>
-          Active Session
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">Operations</div>
+        <a class="nav-item active" href="#" onclick="navigateTo('notices', this); return false;">
+          <span class="nav-icon">📋</span> Notice Board
+          <span class="nav-tag">Live</span>
+        </a>
+        <a class="nav-item" href="#" onclick="navigateTo('announcement', this); return false;">
+          <span class="nav-icon">📢</span> Announcements
+        </a>
+
+        <div class="nav-section-label">Services</div>
+        <a class="nav-item" href="#" onclick="navigateTo('transactions', this); return false;">
+          <span class="nav-icon">💳</span> Transactions
+        </a>
+        <a class="nav-item" href="#" onclick="navigateTo('alerts', this); return false;">
+          <span class="nav-icon">🔔</span> Security Alerts
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="logout-btn" onclick="doLogout()">
+          <span>🚪</span> Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+      <div class="topbar">
+        <div class="topbar-breadcrumb">
+          SecureBank Isley Portal / <span id="topbar-section">Notice Board</span>
         </div>
-      </div>
-    </div>
-
-    <nav class="sidebar-nav">
-      <div class="nav-section-label">Operations</div>
-      <a class="nav-item active" href="#" onclick="navigateTo('notices', this); return false;">
-        <span class="nav-icon">📋</span> Notice Board
-        <span class="nav-tag">Live</span>
-      </a>
-      <a class="nav-item" href="#" onclick="navigateTo('announcement', this); return false;">
-        <span class="nav-icon">📢</span> Announcements
-      </a>
-
-      <div class="nav-section-label">Services</div>
-      <a class="nav-item" href="#" onclick="navigateTo('transactions', this); return false;">
-        <span class="nav-icon">💳</span> Transactions
-      </a>
-      <a class="nav-item" href="#" onclick="navigateTo('alerts', this); return false;">
-        <span class="nav-icon">🔔</span> Security Alerts
-      </a>
-    </nav>
-
-    <div class="sidebar-footer">
-      <button class="logout-btn" onclick="doLogout()">
-        <span>🚪</span> Sign Out
-      </button>
-    </div>
-  </aside>
-
-  <!-- MAIN -->
-  <div class="main">
-    <div class="topbar">
-      <div class="topbar-breadcrumb">
-        SecureBank Isley Portal / <span id="topbar-section">Notice Board</span>
-      </div>
+        
       <div class="topbar-right">
-        <div class="topbar-time" id="topbar-clock">--:--:--</div>
-        <div class="topbar-alert">🟢 All Systems Operational</div>
-      </div>
-    </div>
+        <button id="theme-toggle" class="btn-ghost" style="padding:0.4rem 0.8rem;border:1px solid var(--border);border-radius:6px;cursor:pointer;background:var(--bg-surface);color:var(--text-main);" onclick="toggleTheme()">🌓 Theme</button>
 
-    <div class="page-content">
-
-      <!-- ══ NOTICE BOARD ══ -->
-      <div class="page-view active" id="page-notices">
-        <div class="page-header">
-          <div class="page-title-group">
-            <div class="page-eyebrow">Internal Communications</div>
-            <div class="page-title">Notice Board</div>
-          </div>
-          <button class="btn-primary" onclick="alert('Create Notice — Coming in next episode!')">+ New Notice</button>
-        </div>
-
-        <div class="card">
-          <div class="tabs">
-            <div class="tab active" onclick="switchTab(this,'active','notices-grid','notices-empty')">Active</div>
-            <div class="tab" onclick="switchTab(this,'draft','notices-grid','notices-empty')">Draft</div>
-            <div class="tab" onclick="switchTab(this,'pending','notices-grid','notices-empty')">Pending</div>
-            <div class="tab" onclick="switchTab(this,'rejected','notices-grid','notices-empty')">Rejected</div>
-            <div class="tab" onclick="switchTab(this,'expired','notices-grid','notices-empty')">Expired</div>
-          </div>
-
-          <div class="content-grid" id="notices-grid">
-
-            <div class="notice-card" data-status="active">
-              <div class="notice-badge active">● Active</div>
-              <div class="notice-title">System Maintenance Window — Core Banking</div>
-              <div class="notice-desc">Scheduled downtime for core banking infrastructure upgrade. All staff to prepare contingency procedures.</div>
-              <div class="notice-meta">
-                <div class="meta-row"><span class="meta-icon">📅</span> 2026-03-01 – 2026-03-31</div>
-                <div class="meta-row"><span class="meta-icon">#</span> Infrastructure</div>
-                <div class="meta-row"><span class="meta-icon">📍</span> HQ Data Centre</div>
-              </div>
-              <div class="notice-footer">Author: admin@securebank-demo.my</div>
-            </div>
-
-            <div class="notice-card" data-status="active">
-              <div class="notice-badge active">● Active</div>
-              <div class="notice-title">Mandatory Security Awareness Training Q1 2026</div>
-              <div class="notice-desc">All employees must complete the phishing simulation and security module before end of quarter.</div>
-              <div class="notice-meta">
-                <div class="meta-row"><span class="meta-icon">📅</span> 2026-01-01 – 2026-03-31</div>
-                <div class="meta-row"><span class="meta-icon">#</span> Compliance</div>
-                <div class="meta-row"><span class="meta-icon">📍</span> All Branches</div>
-              </div>
-              <div class="notice-footer">Author: admin@securebank-demo.my</div>
-            </div>
-
-            <div class="notice-card" data-status="draft">
-              <div class="notice-badge draft">◌ Draft</div>
-              <div class="notice-title">New KYC Verification Procedures — Draft</div>
-              <div class="notice-desc">Updated Know Your Customer workflow pending legal review before publication.</div>
-              <div class="notice-meta">
-                <div class="meta-row"><span class="meta-icon">📅</span> 2026-04-01 – 2026-12-31</div>
-                <div class="meta-row"><span class="meta-icon">#</span> Compliance</div>
-                <div class="meta-row"><span class="meta-icon">📍</span> All Branches</div>
-              </div>
-              <div class="notice-footer">Author: admin@securebank-demo.my</div>
-            </div>
-
-            <div class="notice-card" data-status="pending">
-              <div class="notice-badge pending">⏳ Pending</div>
-              <div class="notice-title">ATM Network Upgrade — Customer Notice</div>
-              <div class="notice-desc">Awaiting branch manager approval before distribution to customer-facing channels.</div>
-              <div class="notice-meta">
-                <div class="meta-row"><span class="meta-icon">📅</span> 2026-04-15 – 2026-05-15</div>
-                <div class="meta-row"><span class="meta-icon">#</span> Operations</div>
-                <div class="meta-row"><span class="meta-icon">📍</span> Nationwide</div>
-              </div>
-              <div class="notice-footer">Author: admin@securebank-demo.my</div>
-            </div>
-
-            <div class="notice-card" data-status="rejected">
-              <div class="notice-badge rejected">✕ Rejected</div>
-              <div class="notice-title">Unauthorized Rate Change Announcement</div>
-              <div class="notice-desc">Rejected by compliance team — did not follow standard rate change disclosure procedures.</div>
-              <div class="notice-meta">
-                <div class="meta-row"><span class="meta-icon">📅</span> 2025-11-01 – 2025-11-30</div>
-                <div class="meta-row"><span class="meta-icon">#</span> Finance</div>
-                <div class="meta-row"><span class="meta-icon">📍</span> N/A</div>
-              </div>
-              <div class="notice-footer">Author: admin@securebank-demo.my</div>
-            </div>
-
-            <div class="notice-card" data-status="expired">
-              <div class="notice-badge expired">⊘ Expired</div>
-              <div class="notice-title">Year-End Holiday Branch Hours 2025</div>
-              <div class="notice-desc">This notice has expired and is archived for record-keeping purposes.</div>
-              <div class="notice-meta">
-                <div class="meta-row"><span class="meta-icon">📅</span> 2025-12-15 – 2026-01-05</div>
-                <div class="meta-row"><span class="meta-icon">#</span> Operations</div>
-                <div class="meta-row"><span class="meta-icon">📍</span> All Branches</div>
-              </div>
-              <div class="notice-footer">Author: admin@securebank-demo.my</div>
-            </div>
-
-          </div>
-
-          <div class="empty-state" id="notices-empty">
-            <div class="empty-icon">📭</div>
-            <div class="empty-text">No notices in this category.</div>
-          </div>
+          <div class="topbar-time" id="topbar-clock">--:--:--</div>
+          <div class="topbar-alert">🟢 All Systems Operational</div>
         </div>
       </div>
 
-      <!-- ══ ANNOUNCEMENT ══ -->
-      <div class="page-view" id="page-announcement">
-        <div class="page-header">
-          <div class="page-title-group">
-            <div class="page-eyebrow">Official Communications</div>
-            <div class="page-title">Announcements</div>
+      <div class="page-content">
+
+        <!-- ══ NOTICE BOARD ══ -->
+        <div class="page-view active" id="page-notices">
+          <div class="page-header">
+            <div class="page-title-group">
+              <div class="page-eyebrow">Internal Communications</div>
+              <div class="page-title">Notice Board</div>
+            </div>
+            <button class="btn-primary" onclick="alert('Create Notice — Coming in next episode!')">+ New Notice</button>
           </div>
-          <button class="btn-primary" onclick="navigateTo('announcement-create', null)">+ New Announcement</button>
+
+          <div class="card">
+            <div class="tabs">
+              <div class="tab active" onclick="switchTab(this,'active','notices-grid','notices-empty')">Active</div>
+              <div class="tab" onclick="switchTab(this,'draft','notices-grid','notices-empty')">Draft</div>
+              <div class="tab" onclick="switchTab(this,'pending','notices-grid','notices-empty')">Pending</div>
+              <div class="tab" onclick="switchTab(this,'rejected','notices-grid','notices-empty')">Rejected</div>
+              <div class="tab" onclick="switchTab(this,'expired','notices-grid','notices-empty')">Expired</div>
+            </div>
+
+            <div class="content-grid" id="notices-grid">
+
+              <div class="notice-card" data-status="active">
+                <div class="notice-badge active">● Active</div>
+                <div class="notice-title">System Maintenance Window — Core Banking</div>
+                <div class="notice-desc">Scheduled downtime for core banking infrastructure upgrade. All staff to
+                  prepare contingency procedures.</div>
+                <div class="notice-meta">
+                  <div class="meta-row"><span class="meta-icon">📅</span> 2026-03-01 – 2026-03-31</div>
+                  <div class="meta-row"><span class="meta-icon">#</span> Infrastructure</div>
+                  <div class="meta-row"><span class="meta-icon">📍</span> HQ Data Centre</div>
+                </div>
+                <div class="notice-footer">Author: admin@securebank-demo.my</div>
+              </div>
+
+              <div class="notice-card" data-status="active">
+                <div class="notice-badge active">● Active</div>
+                <div class="notice-title">Mandatory Security Awareness Training Q1 2026</div>
+                <div class="notice-desc">All employees must complete the phishing simulation and security module before
+                  end of quarter.</div>
+                <div class="notice-meta">
+                  <div class="meta-row"><span class="meta-icon">📅</span> 2026-01-01 – 2026-03-31</div>
+                  <div class="meta-row"><span class="meta-icon">#</span> Compliance</div>
+                  <div class="meta-row"><span class="meta-icon">📍</span> All Branches</div>
+                </div>
+                <div class="notice-footer">Author: admin@securebank-demo.my</div>
+              </div>
+
+              <div class="notice-card" data-status="draft">
+                <div class="notice-badge draft">◌ Draft</div>
+                <div class="notice-title">New KYC Verification Procedures — Draft</div>
+                <div class="notice-desc">Updated Know Your Customer workflow pending legal review before publication.
+                </div>
+                <div class="notice-meta">
+                  <div class="meta-row"><span class="meta-icon">📅</span> 2026-04-01 – 2026-12-31</div>
+                  <div class="meta-row"><span class="meta-icon">#</span> Compliance</div>
+                  <div class="meta-row"><span class="meta-icon">📍</span> All Branches</div>
+                </div>
+                <div class="notice-footer">Author: admin@securebank-demo.my</div>
+              </div>
+
+              <div class="notice-card" data-status="pending">
+                <div class="notice-badge pending">⏳ Pending</div>
+                <div class="notice-title">ATM Network Upgrade — Customer Notice</div>
+                <div class="notice-desc">Awaiting branch manager approval before distribution to customer-facing
+                  channels.</div>
+                <div class="notice-meta">
+                  <div class="meta-row"><span class="meta-icon">📅</span> 2026-04-15 – 2026-05-15</div>
+                  <div class="meta-row"><span class="meta-icon">#</span> Operations</div>
+                  <div class="meta-row"><span class="meta-icon">📍</span> Nationwide</div>
+                </div>
+                <div class="notice-footer">Author: admin@securebank-demo.my</div>
+              </div>
+
+              <div class="notice-card" data-status="rejected">
+                <div class="notice-badge rejected">✕ Rejected</div>
+                <div class="notice-title">Unauthorized Rate Change Announcement</div>
+                <div class="notice-desc">Rejected by compliance team — did not follow standard rate change disclosure
+                  procedures.</div>
+                <div class="notice-meta">
+                  <div class="meta-row"><span class="meta-icon">📅</span> 2025-11-01 – 2025-11-30</div>
+                  <div class="meta-row"><span class="meta-icon">#</span> Finance</div>
+                  <div class="meta-row"><span class="meta-icon">📍</span> N/A</div>
+                </div>
+                <div class="notice-footer">Author: admin@securebank-demo.my</div>
+              </div>
+
+              <div class="notice-card" data-status="expired">
+                <div class="notice-badge expired">⊘ Expired</div>
+                <div class="notice-title">Year-End Holiday Branch Hours 2025</div>
+                <div class="notice-desc">This notice has expired and is archived for record-keeping purposes.</div>
+                <div class="notice-meta">
+                  <div class="meta-row"><span class="meta-icon">📅</span> 2025-12-15 – 2026-01-05</div>
+                  <div class="meta-row"><span class="meta-icon">#</span> Operations</div>
+                  <div class="meta-row"><span class="meta-icon">📍</span> All Branches</div>
+                </div>
+                <div class="notice-footer">Author: admin@securebank-demo.my</div>
+              </div>
+
+            </div>
+
+            <div class="empty-state" id="notices-empty">
+              <div class="empty-icon">📭</div>
+              <div class="empty-text">No notices in this category.</div>
+            </div>
+          </div>
         </div>
 
-        <div class="card">
-          <div class="card-head">
-            <div class="card-title">Active Announcements</div>
+        <!-- ══ ANNOUNCEMENT ══ -->
+        <div class="page-view" id="page-announcement">
+          <div class="page-header">
+            <div class="page-title-group">
+              <div class="page-eyebrow">Official Communications</div>
+              <div class="page-title">Announcements</div>
+            </div>
+            <button class="btn-primary" onclick="navigateTo('announcement-create', null)">+ New Announcement</button>
           </div>
-          <div class="content-grid">
-            <div class="notice-card" onclick="navigateTo('announcement-detail', null)">
-              <div class="notice-badge active">● Active</div>
-              <div class="notice-title" id="ann-card-title"></div>
-              <div class="notice-footer">
-                <span id="ann-card-author"></span><br>
-                <span id="ann-card-date"></span>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title">Active Announcements</div>
+            </div>
+            <div class="content-grid">
+              <div class="notice-card" onclick="navigateTo('announcement-detail', null)">
+                <div class="notice-badge active">● Active</div>
+                <div class="notice-title" id="ann-card-title"></div>
+                <div class="notice-footer">
+                  <span id="ann-card-author"></span><br>
+                  <span id="ann-card-date"></span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- ══ ANNOUNCEMENT DETAIL ══ -->
-      <div class="page-view" id="page-announcement-detail">
-        <button class="back-btn" onclick="navigateTo('announcement', null)">← Back to Announcements</button>
-        <div class="page-header">
-          <div class="page-title-group">
-            <div class="page-eyebrow">Official Communications</div>
-            <div class="page-title">Announcement Detail</div>
+        <!-- ══ ANNOUNCEMENT DETAIL ══ -->
+        <div class="page-view" id="page-announcement-detail">
+          <button class="back-btn" onclick="navigateTo('announcement', null)">← Back to Announcements</button>
+          <div class="page-header">
+            <div class="page-title-group">
+              <div class="page-eyebrow">Official Communications</div>
+              <div class="page-title">Announcement Detail</div>
+            </div>
+            <button class="btn-primary" onclick="navigateTo('announcement-edit', null)">Edit</button>
           </div>
-          <button class="btn-primary" onclick="navigateTo('announcement-edit', null)">Edit</button>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <div class="detail-title-large" id="detail-title"></div>
-            <div class="detail-fields">
-              <div class="detail-field">
-                <div class="detail-field-label">Status</div>
-                <div class="detail-field-value"><span class="status-pill">Active</span></div>
-              </div>
-              <div class="detail-field">
-                <div class="detail-field-label">Date</div>
-                <div class="detail-field-value" id="detail-date"></div>
-              </div>
-              <div class="detail-field">
-                <div class="detail-field-label">Author</div>
-                <div class="detail-field-value" id="detail-author"></div>
+          <div class="card">
+            <div class="card-body">
+              <div class="detail-title-large" id="detail-title"></div>
+              <div class="detail-fields">
+                <div class="detail-field">
+                  <div class="detail-field-label">Status</div>
+                  <div class="detail-field-value"><span class="status-pill">Active</span></div>
+                </div>
+                <div class="detail-field">
+                  <div class="detail-field-label">Date</div>
+                  <div class="detail-field-value" id="detail-date"></div>
+                </div>
+                <div class="detail-field">
+                  <div class="detail-field-label">Author</div>
+                  <div class="detail-field-value" id="detail-author"></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- ══ ANNOUNCEMENT EDIT ══ -->
-      <div class="page-view" id="page-announcement-edit">
-        <button class="back-btn" onclick="navigateTo('announcement-detail', null)">← Back to Detail</button>
-        <div class="page-header">
-          <div class="page-title-group">
-            <div class="page-eyebrow">Official Communications</div>
-            <div class="page-title">Edit Announcement</div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <div class="form-group">
-              <div class="form-field">
-                <label class="form-label">Announcement Title</label>
-                <textarea class="form-textarea" id="edit-title" rows="3" oninput="autoQuote(this)"></textarea>
-              </div>
-              <div class="form-field">
-                <label class="form-label">Date</label>
-                <input class="form-input" id="edit-date-display" type="text" disabled>
-                <div class="form-hint">Auto-detected from system</div>
-              </div>
-              <div class="form-field">
-                <label class="form-label">Author</label>
-                <input class="form-input" id="edit-author-display" type="text" disabled>
-                <div class="form-hint">Auto-detected from account</div>
-              </div>
-            </div>
-            <div class="form-footer">
-              <button class="btn-ghost" onclick="navigateTo('announcement-detail', null)">Cancel</button>
-              <button class="btn-primary" onclick="saveAnnouncement()">Save Changes</button>
+        <!-- ══ ANNOUNCEMENT EDIT ══ -->
+        <div class="page-view" id="page-announcement-edit">
+          <button class="back-btn" onclick="navigateTo('announcement-detail', null)">← Back to Detail</button>
+          <div class="page-header">
+            <div class="page-title-group">
+              <div class="page-eyebrow">Official Communications</div>
+              <div class="page-title">Edit Announcement</div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- ══ ANNOUNCEMENT CREATE ══ -->
-      <div class="page-view" id="page-announcement-create">
-        <button class="back-btn" onclick="navigateTo('announcement', null)">← Back to Announcements</button>
-        <div class="page-header">
-          <div class="page-title-group">
-            <div class="page-eyebrow">Official Communications</div>
-            <div class="page-title">New Announcement</div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-body">
-            <div class="form-group">
-              <div class="form-field">
-                <label class="form-label">Announcement Title</label>
-                <textarea class="form-textarea" id="create-title" rows="3"
-                  placeholder="Type your announcement here..."
-                  oninput="autoQuote(this)"></textarea>
+          <div class="card">
+            <div class="card-body">
+              <div class="form-group">
+                <div class="form-field">
+                  <label class="form-label">Announcement Title</label>
+                  <textarea class="form-textarea" id="edit-title" rows="3" oninput="autoQuote(this)"></textarea>
+                </div>
+                <div class="form-field">
+                  <label class="form-label">Date</label>
+                  <input class="form-input" id="edit-date-display" type="text" disabled>
+                  <div class="form-hint">Auto-detected from system</div>
+                </div>
+                <div class="form-field">
+                  <label class="form-label">Author</label>
+                  <input class="form-input" id="edit-author-display" type="text" disabled>
+                  <div class="form-hint">Auto-detected from account</div>
+                </div>
               </div>
-              <div class="form-field">
-                <label class="form-label">Date</label>
-                <input class="form-input" type="text" id="create-date" disabled>
-                <div class="form-hint">Auto-detected from system</div>
+              <div class="form-footer">
+                <button class="btn-ghost" onclick="navigateTo('announcement-detail', null)">Cancel</button>
+                <button class="btn-primary" onclick="saveAnnouncement()">Save Changes</button>
               </div>
-              <div class="form-field">
-                <label class="form-label">Author</label>
-                <input class="form-input" type="text" id="create-author" disabled>
-                <div class="form-hint">Auto-detected from account</div>
-              </div>
-            </div>
-            <div class="form-footer">
-              <button class="btn-ghost" onclick="navigateTo('announcement', null)">Cancel</button>
-              <button class="btn-primary" onclick="saveNewAnnouncement()">Publish</button>
             </div>
           </div>
         </div>
+
+        <!-- ══ ANNOUNCEMENT CREATE ══ -->
+        <div class="page-view" id="page-announcement-create">
+          <button class="back-btn" onclick="navigateTo('announcement', null)">← Back to Announcements</button>
+          <div class="page-header">
+            <div class="page-title-group">
+              <div class="page-eyebrow">Official Communications</div>
+              <div class="page-title">New Announcement</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="form-group">
+                <div class="form-field">
+                  <label class="form-label">Announcement Title</label>
+                  <textarea class="form-textarea" id="create-title" rows="3"
+                    placeholder="Type your announcement here..." oninput="autoQuote(this)"></textarea>
+                </div>
+                <div class="form-field">
+                  <label class="form-label">Date</label>
+                  <input class="form-input" type="text" id="create-date" disabled>
+                  <div class="form-hint">Auto-detected from system</div>
+                </div>
+                <div class="form-field">
+                  <label class="form-label">Author</label>
+                  <input class="form-input" type="text" id="create-author" disabled>
+                  <div class="form-hint">Auto-detected from account</div>
+                </div>
+              </div>
+              <div class="form-footer">
+                <button class="btn-ghost" onclick="navigateTo('announcement', null)">Cancel</button>
+                <button class="btn-primary" onclick="saveNewAnnouncement()">Publish</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ TRANSACTIONS ══ -->
+        <div class="page-view" id="page-transactions">
+          <div class="page-header">
+            <div class="page-title-group">
+              <div class="page-eyebrow">Financial Activity</div>
+              <div class="page-title">Transactions</div>
+            </div>
+            <div style="display:flex;gap:0.75rem;align-items:center;">
+              <select id="txn-filter" class="form-input" style="width:auto; padding:0.4rem 1rem; display:none;"
+                onchange="renderFilteredTxns()">
+                <option value="all">All</option>
+                <option value="flagged">Flagged</option>
+              </select>
+              <div id="txn-flagged-badge"
+                style="display:none;font-size:0.75rem;font-weight:600;background:rgba(192,57,43,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);border-radius:6px;padding:0.35rem 0.85rem;">
+              </div>
+              <button class="btn-primary" onclick="loadTransactions()">↻ Refresh</button>
+            </div>
+          </div>
+
+          <!-- Summary strip -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.25rem;">
+            <div
+              style="background:var(--bg-surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;">
+              <div
+                style="font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">
+                Total Transactions</div>
+              <div id="txn-total" style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--text-main);">—
+              </div>
+            </div>
+            <div
+              style="background:var(--bg-surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;">
+              <div
+                style="font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">
+                Flagged / Suspicious</div>
+              <div id="txn-flagged-count" style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:#e74c3c;">—
+              </div>
+            </div>
+            <div
+              style="background:var(--bg-surface);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;">
+              <div
+                style="font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">
+                Account</div>
+              <div id="txn-account" style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--gold);">—
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div id="txn-loading" style="padding:4rem;text-align:center;color:var(--muted);font-size:0.85rem;">Loading
+              transactions...</div>
+            <div id="txn-error" style="display:none;padding:3rem;text-align:center;">
+              <div style="font-size:2rem;margin-bottom:0.75rem;">⚠️</div>
+              <div style="font-size:0.85rem;color:#e74c3c;" id="txn-error-msg">Could not load transactions.</div>
+            </div>
+            <div id="txn-table-wrap" style="display:none;overflow-x:auto;">
+              <table style="width:100%;border-collapse:collapse;">
+                <thead>
+                  <tr style="border-bottom:1px solid var(--border);">
+                    <th
+                      style="padding:0.85rem 1.5rem;text-align:left;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">
+                      Txn ID</th>
+                    <th
+                      style="padding:0.85rem 1.5rem;text-align:left;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">
+                      Date</th>
+                    <th id="th-owner"
+                      style="padding:0.85rem 1rem;text-align:left;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:none;">
+                      Account</th>
+                    <th
+                      style="padding:0.85rem 1rem;text-align:left;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">
+                      Description</th>
+                    <th
+                      style="padding:0.85rem 1rem;text-align:left;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">
+                      Category</th>
+                    <th
+                      style="padding:0.85rem 1rem;text-align:right;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">
+                      Amount</th>
+                    <th
+                      style="padding:0.85rem 1rem;text-align:center;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">
+                      Status</th>
+                    <th id="th-flag"
+                      style="padding:0.85rem 1.5rem;text-align:center;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);display:none;">
+                      Flag</th>
+                  </tr>
+                </thead>
+                <tbody id="txn-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div
+            style="margin-top:1rem;background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:1rem 1.5rem;display:flex;align-items:center;gap:0.75rem;">
+            <span style="font-size:1.1rem;">🔔</span>
+            <div>
+              <div style="font-size:0.8rem;font-weight:600;color:var(--gold);">Episode 4 — Coming next</div>
+              <div style="font-size:0.75rem;color:var(--muted);margin-top:0.2rem;">Splunk automated alerts will fire on
+                flagged transactions. Anomaly detection + incident report generation.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ══ SECURITY ALERTS PLACEHOLDER ══ -->
+        <div class="page-view" id="page-alerts">
+          <div class="page-header">
+            <div class="page-title-group">
+              <div class="page-eyebrow">Security Operations</div>
+              <div class="page-title">Security Alerts</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="coming-soon">
+              <div class="coming-soon-icon">🔔</div>
+              <div class="coming-soon-title">Coming in Episode 5</div>
+              <div class="coming-soon-sub">Real-time Splunk alert feed and incident triage</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /page-content -->
+    </div><!-- /main -->
+  </div><!-- /dashboard-screen -->
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="save-modal">
+    <div class="modal-box">
+      <div class="modal-icon">📢</div>
+      <div class="modal-title">Confirm Publication</div>
+      <div class="modal-msg">This will replace the current announcement with your new content. This action is logged.
       </div>
-
-      <!-- ══ TRANSACTIONS ══ -->
-      <div class="page-view" id="page-transactions">
-        <div class="page-header">
-          <div class="page-title-group">
-            <div class="page-eyebrow">Financial Activity</div>
-            <div class="page-title">Transactions</div>
-          </div>
-          <div style="display:flex;gap:0.75rem;align-items:center;">
-            <div id="txn-flagged-badge" style="display:none;font-size:0.75rem;font-weight:600;background:rgba(192,57,43,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);border-radius:6px;padding:0.35rem 0.85rem;"></div>
-            <button class="btn-primary" onclick="loadTransactions()">↻ Refresh</button>
-          </div>
-        </div>
-
-        <!-- Summary strip -->
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.25rem;">
-          <div style="background:var(--navy-mid);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;">
-            <div style="font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">Total Transactions</div>
-            <div id="txn-total" style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--white);">—</div>
-          </div>
-          <div style="background:var(--navy-mid);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;">
-            <div style="font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">Flagged / Suspicious</div>
-            <div id="txn-flagged-count" style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:#e74c3c;">—</div>
-          </div>
-          <div style="background:var(--navy-mid);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;">
-            <div style="font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">Account</div>
-            <div id="txn-account" style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--gold);">—</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div id="txn-loading" style="padding:4rem;text-align:center;color:var(--muted);font-size:0.85rem;">Loading transactions...</div>
-          <div id="txn-error" style="display:none;padding:3rem;text-align:center;">
-            <div style="font-size:2rem;margin-bottom:0.75rem;">⚠️</div>
-            <div style="font-size:0.85rem;color:#e74c3c;" id="txn-error-msg">Could not load transactions.</div>
-          </div>
-          <div id="txn-table-wrap" style="display:none;overflow-x:auto;">
-            <table style="width:100%;border-collapse:collapse;">
-              <thead>
-                <tr style="border-bottom:1px solid var(--border);">
-                  <th style="padding:0.85rem 1.5rem;text-align:left;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Date</th>
-                  <th style="padding:0.85rem 1rem;text-align:left;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Description</th>
-                  <th style="padding:0.85rem 1rem;text-align:left;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Category</th>
-                  <th style="padding:0.85rem 1rem;text-align:right;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Amount</th>
-                  <th style="padding:0.85rem 1rem;text-align:center;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Status</th>
-                  <th style="padding:0.85rem 1.5rem;text-align:center;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Flag</th>
-                </tr>
-              </thead>
-              <tbody id="txn-tbody"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <div style="margin-top:1rem;background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:1rem 1.5rem;display:flex;align-items:center;gap:0.75rem;">
-          <span style="font-size:1.1rem;">🔔</span>
-          <div>
-            <div style="font-size:0.8rem;font-weight:600;color:var(--gold);">Episode 4 — Coming next</div>
-            <div style="font-size:0.75rem;color:var(--muted);margin-top:0.2rem;">Splunk automated alerts will fire on flagged transactions. Anomaly detection + incident report generation.</div>
-          </div>
-        </div>
+      <div class="modal-actions">
+        <button class="btn-ghost"
+          onclick="document.getElementById('save-modal').classList.remove('open')">Cancel</button>
+        <button class="btn-primary" onclick="confirmSave()">Confirm</button>
       </div>
-
-      <!-- ══ SECURITY ALERTS PLACEHOLDER ══ -->
-      <div class="page-view" id="page-alerts">
-        <div class="page-header">
-          <div class="page-title-group">
-            <div class="page-eyebrow">Security Operations</div>
-            <div class="page-title">Security Alerts</div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="coming-soon">
-            <div class="coming-soon-icon">🔔</div>
-            <div class="coming-soon-title">Coming in Episode 5</div>
-            <div class="coming-soon-sub">Real-time Splunk alert feed and incident triage</div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /page-content -->
-  </div><!-- /main -->
-</div><!-- /dashboard-screen -->
-
-<!-- MODAL -->
-<div class="modal-overlay" id="save-modal">
-  <div class="modal-box">
-    <div class="modal-icon">📢</div>
-    <div class="modal-title">Confirm Publication</div>
-    <div class="modal-msg">This will replace the current announcement with your new content. This action is logged.</div>
-    <div class="modal-actions">
-      <button class="btn-ghost" onclick="document.getElementById('save-modal').classList.remove('open')">Cancel</button>
-      <button class="btn-primary" onclick="confirmSave()">Confirm</button>
     </div>
   </div>
-</div>
 
-<script>
-  const API = 'http://localhost:3000';
+  <script>
+    const API = 'http://localhost:3000';
+    let cachedTransactions = [];
 
-  // ── LOGIN ──
-  async function doLogin() {
-    const u   = document.getElementById('login-username').value.trim();
-    const p   = document.getElementById('login-password').value;
-    const err = document.getElementById('login-error');
-    const btn = document.getElementById('signin-btn');
+    // ── LOGIN ──
+    async function doLogin() {
+      const u = document.getElementById('login-username').value.trim();
+      const p = document.getElementById('login-password').value;
+      const err = document.getElementById('login-error');
+      const btn = document.getElementById('signin-btn');
 
-    if (!u || !p) {
-      err.textContent = '⚠ Please enter both username and password.';
-      err.classList.add('visible'); return;
-    }
+      if (!u || !p) {
+        err.textContent = '⚠ Please enter both username and password.';
+        err.classList.add('visible'); return;
+      }
 
-    btn.textContent = 'Authenticating...';
-    btn.disabled = true;
+      btn.textContent = 'Authenticating...';
+      btn.disabled = true;
 
-    try {
-      const res  = await fetch(`${API}/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: u, password: p })
-      });
-      const data = await res.json();
+      try {
+        const res = await fetch(`${API}/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: u, password: p })
+        });
+        const data = await res.json();
 
-      if (res.ok && data.access_token) {
-        localStorage.setItem('sb_token',  data.access_token);
-        localStorage.setItem('sb_user',   JSON.stringify(data.user));
-        err.classList.remove('visible');
-        showDashboard(data.user);
-      } else {
-        err.textContent = '⚠ ' + (data.error || 'Invalid credentials. Access denied.');
+        if (res.ok && data.access_token) {
+          localStorage.setItem('sb_token', data.access_token);
+          localStorage.setItem('sb_user', JSON.stringify(data.user));
+          err.classList.remove('visible');
+          showDashboard(data.user);
+        } else {
+          err.textContent = '⚠ ' + (data.error || 'Invalid credentials. Access denied.');
+          err.classList.add('visible');
+          document.getElementById('login-password').value = '';
+          document.getElementById('login-password').focus();
+        }
+      } catch (e) {
+        err.textContent = '⚠ Cannot reach SecureBank server. Is Node.js running on port 3000?';
         err.classList.add('visible');
-        document.getElementById('login-password').value = '';
-        document.getElementById('login-password').focus();
       }
-    } catch (e) {
-      err.textContent = '⚠ Cannot reach SecureBank server. Is Node.js running on port 3000?';
-      err.classList.add('visible');
+
+      btn.textContent = 'Sign In Securely';
+      btn.disabled = false;
     }
 
-    btn.textContent = 'Sign In Securely';
-    btn.disabled = false;
-  }
 
-  function showDashboard(user) {
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('dashboard-screen').classList.add('visible');
-    // Set user info
-    const u = user || JSON.parse(localStorage.getItem('sb_user') || '{}');
-    if (u.displayName) {
-      document.getElementById('sb-displayname').textContent = u.displayName;
-      document.getElementById('sb-avatar').textContent = u.displayName.charAt(0).toUpperCase();
+    function toggleTheme() {
+      const isDark = document.body.getAttribute('data-theme') === 'dark';
+      document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      localStorage.setItem('sb_theme', isDark ? 'light' : 'dark');
     }
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('create-date').value  = today;
-    document.getElementById('create-author').value = u.email || 'admin@securebank-demo.my';
-    navigateTo('notices', null);
-    renderAnnouncement();
-    startClock();
-  }
-
-  async function doLogout() {
-    const token = localStorage.getItem('sb_token');
-    if (token) {
-      try { await fetch(`${API}/logout`, { method: 'POST', headers: { 'Authorization': 'Bearer ' + token } }); }
-      catch(e) {}
+    
+    // Init theme
+    if (localStorage.getItem('sb_theme') === 'dark') {
+      document.body.setAttribute('data-theme', 'dark');
     }
-    localStorage.removeItem('sb_token');
-    localStorage.removeItem('sb_user');
-    document.getElementById('dashboard-screen').classList.remove('visible');
-    document.getElementById('login-screen').style.display = 'flex';
-    document.getElementById('login-username').value = '';
-    document.getElementById('login-password').value = '';
-  }
+    
+    function showDashboard(user) {
 
-  // Auto-restore session
-  if (localStorage.getItem('sb_token')) {
-    showDashboard(JSON.parse(localStorage.getItem('sb_user') || '{}'));
-  }
-
-  // ── CLOCK ──
-  function startClock() {
-    function tick() {
-      const now = new Date();
-      document.getElementById('topbar-clock').textContent =
-        now.toLocaleTimeString('en-MY', { hour12: false });
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('dashboard-screen').classList.add('visible');
+      // Set user info
+      const u = user || JSON.parse(localStorage.getItem('sb_user') || '{}');
+      if (u.displayName) {
+        document.getElementById('sb-displayname').textContent = u.displayName;
+        document.getElementById('sb-avatar').textContent = u.displayName.charAt(0).toUpperCase();
+      }
+      const roleEl = document.getElementById('sb-role');
+      if (roleEl) {
+        roleEl.textContent = u.role === 'admin' ? 'Fraud Analyst' : 'Customer';
+      }
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('create-date').value = today;
+      document.getElementById('create-author').value = u.email || 'admin@securebank-demo.my';
+      navigateTo('notices', null);
+      renderAnnouncement();
+      startClock();
     }
-    tick();
-    setInterval(tick, 1000);
-  }
 
-  // ── ANNOUNCEMENT STORAGE ──
-  const STORAGE_KEY = 'securebank_announcement';
-  const DEFAULT_ANN = {
-    title:  'MANDATORY: All staff must complete 2FA enrollment by 31 March 2026.',
-    date:   new Date().toISOString().split('T')[0],
-    author: 'admin@securebank-demo.my'
-  };
-
-  function loadAnnouncement() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : { ...DEFAULT_ANN };
-  }
-
-  function persistAnnouncement(data) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  }
-
-  function renderAnnouncement() {
-    const a = loadAnnouncement();
-    const q = '"' + a.title.replace(/^"|"$/g,'') + '"';
-    document.getElementById('ann-card-title').textContent  = q;
-    document.getElementById('ann-card-author').textContent = 'Author: ' + a.author;
-    document.getElementById('ann-card-date').textContent   = '📅 ' + a.date;
-    document.getElementById('detail-title').textContent    = q;
-    document.getElementById('detail-date').textContent     = a.date;
-    document.getElementById('detail-author').textContent   = a.author;
-    const ta = document.getElementById('edit-title');
-    ta.value = a.title.replace(/^"|"$/g,'');
-    autoQuote(ta);
-    document.getElementById('edit-date-display').value   = a.date;
-    document.getElementById('edit-author-display').value = a.author;
-  }
-
-  // ── NAVIGATION ──
-  const sectionNames = {
-    'notices': 'Notice Board',
-    'announcement': 'Announcements',
-    'announcement-detail': 'Announcements',
-    'announcement-edit': 'Announcements',
-    'announcement-create': 'Announcements',
-    'transactions': 'Transactions',
-    'alerts': 'Security Alerts'
-  };
-
-  function navigateTo(page, navEl) {
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    if (navEl) navEl.classList.add('active');
-    document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
-    const target = document.getElementById('page-' + page);
-    if (target) target.classList.add('active');
-    document.getElementById('topbar-section').textContent = sectionNames[page] || page;
-    if (page === 'notices') filterCards('active', 'notices-grid', 'notices-empty');
-    if (page === 'transactions') loadTransactions();
-    if (page === 'announcement-create') document.getElementById('create-title').value = '';
-  }
-
-  // ── AUTO QUOTE ──
-  function autoQuote(el) {
-    let raw = el.value;
-    if (raw.startsWith('"')) raw = raw.slice(1);
-    if (raw.endsWith('"'))   raw = raw.slice(0,-1);
-    if (raw === '') { el.value = ''; return; }
-    const pos = el.selectionStart;
-    el.value = '"' + raw + '"';
-    const np = Math.min(pos + 1, el.value.length - 1);
-    el.setSelectionRange(np, np);
-  }
-
-  // ── SAVE ──
-  let pendingSave = null;
-
-  function saveAnnouncement() {
-    const raw = document.getElementById('edit-title').value.replace(/^"|"$/g,'').trim();
-    if (!raw) { alert('Please enter an announcement title.'); return; }
-    pendingSave = 'edit';
-    document.getElementById('save-modal').classList.add('open');
-  }
-
-  function saveNewAnnouncement() {
-    const raw = document.getElementById('create-title').value.replace(/^"|"$/g,'').trim();
-    if (!raw) { alert('Please enter an announcement title.'); return; }
-    pendingSave = 'create';
-    document.getElementById('save-modal').classList.add('open');
-  }
-
-  function confirmSave() {
-    const a = loadAnnouncement();
-    if (pendingSave === 'edit') {
-      a.title = document.getElementById('edit-title').value.replace(/^"|"$/g,'').trim();
-    } else {
-      a.title = document.getElementById('create-title').value.replace(/^"|"$/g,'').trim();
+    async function doLogout() {
+      const token = localStorage.getItem('sb_token');
+      if (token) {
+        try { await fetch(`${API}/logout`, { method: 'POST', headers: { 'Authorization': 'Bearer ' + token } }); }
+        catch (e) { }
+      }
+      localStorage.removeItem('sb_token');
+      localStorage.removeItem('sb_user');
+      document.getElementById('dashboard-screen').classList.remove('visible');
+      document.getElementById('login-screen').style.display = 'flex';
+      document.getElementById('login-username').value = '';
+      document.getElementById('login-password').value = '';
     }
-    persistAnnouncement(a);
-    renderAnnouncement();
-    document.getElementById('save-modal').classList.remove('open');
-    pendingSave = null;
-    navigateTo('announcement', null);
-  }
 
-  // ── TABS ──
-  function switchTab(el, status, gridId, emptyId) {
-    el.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    el.classList.add('active');
-    filterCards(status, gridId, emptyId);
-  }
+    // Auto-restore session
+    if (localStorage.getItem('sb_token')) {
+      showDashboard(JSON.parse(localStorage.getItem('sb_user') || '{}'));
+    }
 
-  function filterCards(status, gridId, emptyId) {
-    const grid = document.getElementById(gridId);
-    if (!grid) return;
-    let visible = 0;
-    grid.querySelectorAll('.notice-card').forEach(card => {
-      const show = card.dataset.status === status;
-      card.style.display = show ? 'block' : 'none';
-      if (show) visible++;
-    });
-    const empty = document.getElementById(emptyId);
-    if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
-  }
+    // ── CLOCK ──
+    function startClock() {
+      function tick() {
+        const now = new Date();
+        document.getElementById('topbar-clock').textContent =
+          now.toLocaleTimeString('en-MY', { hour12: false });
+      }
+      tick();
+      setInterval(tick, 1000);
+    }
 
-  // ── TRANSACTIONS ──
-  async function loadTransactions() {
-    const token = localStorage.getItem('sb_token');
-    if (!token) return;
+    // ── ANNOUNCEMENT STORAGE ──
+    const STORAGE_KEY = 'securebank_announcement';
+    const DEFAULT_ANN = {
+      title: 'MANDATORY: All staff must complete 2FA enrollment by 31 March 2026.',
+      date: new Date().toISOString().split('T')[0],
+      author: 'admin@securebank-demo.my'
+    };
 
-    // Show loading, hide others
-    document.getElementById('txn-loading').style.display = 'block';
-    document.getElementById('txn-error').style.display   = 'none';
-    document.getElementById('txn-table-wrap').style.display = 'none';
+    function loadAnnouncement() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      return saved ? JSON.parse(saved) : { ...DEFAULT_ANN };
+    }
 
-    try {
-      const res  = await fetch(`${API}/transactions`, {
-        headers: { 'Authorization': 'Bearer ' + token }
-      });
-      const data = await res.json();
+    function persistAnnouncement(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
 
-      if (!res.ok) throw new Error(data.error || 'Failed to load');
+    function renderAnnouncement() {
+      const a = loadAnnouncement();
+      const q = '"' + a.title.replace(/^"|"$/g, '') + '"';
+      document.getElementById('ann-card-title').textContent = q;
+      document.getElementById('ann-card-author').textContent = 'Author: ' + a.author;
+      document.getElementById('ann-card-date').textContent = '📅 ' + a.date;
+      document.getElementById('detail-title').textContent = q;
+      document.getElementById('detail-date').textContent = a.date;
+      document.getElementById('detail-author').textContent = a.author;
+      const ta = document.getElementById('edit-title');
+      ta.value = a.title.replace(/^"|"$/g, '');
+      autoQuote(ta);
+      document.getElementById('edit-date-display').value = a.date;
+      document.getElementById('edit-author-display').value = a.author;
+    }
 
-      // Update summary strip
-      document.getElementById('txn-total').textContent         = data.total;
-      document.getElementById('txn-flagged-count').textContent = data.flagged_count;
-      document.getElementById('txn-account').textContent       = data.account;
+    // ── NAVIGATION ──
+    const sectionNames = {
+      'notices': 'Notice Board',
+      'announcement': 'Announcements',
+      'announcement-detail': 'Announcements',
+      'announcement-edit': 'Announcements',
+      'announcement-create': 'Announcements',
+      'transactions': 'Transactions',
+      'alerts': 'Security Alerts'
+    };
 
-      // Show flagged badge in header if any flagged
-      const badge = document.getElementById('txn-flagged-badge');
-      if (data.flagged_count > 0) {
-        badge.textContent     = `⚠ ${data.flagged_count} Suspicious`;
-        badge.style.display   = 'block';
+    function navigateTo(page, navEl) {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      if (navEl) navEl.classList.add('active');
+      document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById('page-' + page);
+      if (target) target.classList.add('active');
+      document.getElementById('topbar-section').textContent = sectionNames[page] || page;
+      if (page === 'notices') filterCards('active', 'notices-grid', 'notices-empty');
+      if (page === 'transactions') loadTransactions();
+      if (page === 'announcement-create') document.getElementById('create-title').value = '';
+    }
+
+    // ── AUTO QUOTE ──
+    function autoQuote(el) {
+      let raw = el.value;
+      if (raw.startsWith('"')) raw = raw.slice(1);
+      if (raw.endsWith('"')) raw = raw.slice(0, -1);
+      if (raw === '') { el.value = ''; return; }
+      const pos = el.selectionStart;
+      el.value = '"' + raw + '"';
+      const np = Math.min(pos + 1, el.value.length - 1);
+      el.setSelectionRange(np, np);
+    }
+
+    // ── SAVE ──
+    let pendingSave = null;
+
+    function saveAnnouncement() {
+      const raw = document.getElementById('edit-title').value.replace(/^"|"$/g, '').trim();
+      if (!raw) { alert('Please enter an announcement title.'); return; }
+      pendingSave = 'edit';
+      document.getElementById('save-modal').classList.add('open');
+    }
+
+    function saveNewAnnouncement() {
+      const raw = document.getElementById('create-title').value.replace(/^"|"$/g, '').trim();
+      if (!raw) { alert('Please enter an announcement title.'); return; }
+      pendingSave = 'create';
+      document.getElementById('save-modal').classList.add('open');
+    }
+
+    function confirmSave() {
+      const a = loadAnnouncement();
+      if (pendingSave === 'edit') {
+        a.title = document.getElementById('edit-title').value.replace(/^"|"$/g, '').trim();
       } else {
-        badge.style.display   = 'none';
+        a.title = document.getElementById('create-title').value.replace(/^"|"$/g, '').trim();
+      }
+      persistAnnouncement(a);
+      renderAnnouncement();
+      document.getElementById('save-modal').classList.remove('open');
+      pendingSave = null;
+      navigateTo('announcement', null);
+    }
+
+    // ── TABS ──
+    function switchTab(el, status, gridId, emptyId) {
+      el.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      filterCards(status, gridId, emptyId);
+    }
+
+    function filterCards(status, gridId, emptyId) {
+      const grid = document.getElementById(gridId);
+      if (!grid) return;
+      let visible = 0;
+      grid.querySelectorAll('.notice-card').forEach(card => {
+        const show = card.dataset.status === status;
+        card.style.display = show ? 'block' : 'none';
+        if (show) visible++;
+      });
+      const empty = document.getElementById(emptyId);
+      if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+    }
+
+    // ── TRANSACTIONS ──
+
+    async function loadTransactions() {
+      const token = localStorage.getItem('sb_token');
+      const u = JSON.parse(localStorage.getItem('sb_user') || '{}');
+      const isAdmin = u.role === 'admin';
+
+      if (!token) return;
+
+      // Show loading, hide others
+      document.getElementById('txn-loading').style.display = 'block';
+      document.getElementById('txn-error').style.display = 'none';
+      document.getElementById('txn-table-wrap').style.display = 'none';
+
+      // Show/hide UI based on role
+      const filterEl = document.getElementById('txn-filter');
+      const thFlag = document.getElementById('th-flag');
+      const thOwner = document.getElementById('th-owner');
+      if (filterEl) filterEl.style.display = isAdmin ? 'block' : 'none';
+      if (thFlag) thFlag.style.display = isAdmin ? 'table-cell' : 'none';
+      if (thOwner) thOwner.style.display = isAdmin ? 'table-cell' : 'none';
+
+      try {
+        const res = await fetch(`${API}/transactions`, {
+          headers: { 'Authorization': 'Bearer ' + token }
+        });
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.error || 'Failed to load');
+
+        // Update summary strip
+        document.getElementById('txn-total').textContent = data.total;
+        document.getElementById('txn-flagged-count').textContent = data.flagged_count;
+        document.getElementById('txn-account').textContent = data.account;
+
+        // Show flagged badge in header if any flagged
+        const badge = document.getElementById('txn-flagged-badge');
+        if (data.flagged_count > 0 && isAdmin) {
+          badge.textContent = `⚠ ${data.flagged_count} Suspicious`;
+          badge.style.display = 'block';
+        } else {
+          badge.style.display = 'none';
+        }
+
+        cachedTransactions = data.transactions;
+        renderFilteredTxns();
+
+        document.getElementById('txn-loading').style.display = 'none';
+        document.getElementById('txn-table-wrap').style.display = 'block';
+
+      } catch (err) {
+        document.getElementById('txn-loading').style.display = 'none';
+        document.getElementById('txn-error').style.display = 'block';
+        document.getElementById('txn-error-msg').textContent = err.message || 'Could not load transactions.';
+      }
+    }
+
+    function renderFilteredTxns() {
+      const u = JSON.parse(localStorage.getItem('sb_user') || '{}');
+      const isAdmin = u.role === 'admin';
+      const filterVal = document.getElementById('txn-filter') ? document.getElementById('txn-filter').value : 'all';
+
+      let txns = cachedTransactions;
+      if (filterVal === 'flagged') {
+        txns = txns.filter(t => t.flagged);
       }
 
-      // Build table rows
       const tbody = document.getElementById('txn-tbody');
       tbody.innerHTML = '';
 
-      data.transactions.forEach(txn => {
-        const date    = new Date(txn.date).toLocaleString('en-MY', {
+      txns.forEach(txn => {
+        const date = new Date(txn.date).toLocaleString('en-MY', {
           day: '2-digit', month: 'short', year: 'numeric',
           hour: '2-digit', minute: '2-digit', hour12: false
         });
-        const isDebit  = txn.type === 'debit';
+        const isDebit = txn.type === 'debit';
         const amtColor = isDebit ? '#e74c3c' : '#2ecc71';
-        const amtSign  = isDebit ? '−' : '+';
-        const amtStr   = `${amtSign} RM ${Math.abs(txn.amount).toFixed(2)}`;
+        const amtSign = isDebit ? '−' : '+';
+        const amtStr = `${amtSign} RM ${Math.abs(txn.amount).toFixed(2)}`;
 
         const statusPill = txn.status === 'completed'
           ? `<span style="font-size:0.68rem;font-weight:600;padding:0.2rem 0.55rem;border-radius:4px;background:rgba(26,122,69,0.15);color:#2ecc71;border:1px solid rgba(46,204,113,0.2);">Completed</span>`
           : `<span style="font-size:0.68rem;font-weight:600;padding:0.2rem 0.55rem;border-radius:4px;background:rgba(241,196,15,0.1);color:#f1c40f;border:1px solid rgba(241,196,15,0.2);">Pending</span>`;
 
-        const flagCell = txn.flagged
-          ? `<span title="${txn.flag_reason || ''}" style="cursor:help;font-size:0.75rem;font-weight:600;padding:0.2rem 0.6rem;border-radius:4px;background:rgba(192,57,43,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.25);">⚠ Flagged</span>`
-          : `<span style="font-size:0.75rem;color:rgba(255,255,255,0.2);">—</span>`;
+        const flagCell = isAdmin ?
+          `<td style="padding:0.85rem 1.5rem;text-align:center;">${txn.flagged
+            ? `<span title="${txn.flag_reason || ''}" style="cursor:help;font-size:0.75rem;font-weight:600;padding:0.2rem 0.6rem;border-radius:4px;background:rgba(192,57,43,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.25);">⚠ Flagged</span>`
+            : `<span style="font-size:0.75rem;color:rgba(255,255,255,0.2);">—</span>`
+          }</td>` : '';
 
-        const rowBg = txn.flagged ? 'rgba(192,57,43,0.05)' : 'transparent';
+        const ownerCell = isAdmin ?
+          `<td style="padding:0.85rem 1rem;font-size:0.75rem;color:var(--gold);font-weight:500;">
+             <div>👤 ${txn.owner}</div>
+             <div style="font-size:0.65rem;color:var(--muted);margin-top:2px;">UID: ${txn.owner_uid || '?'}</div>
+           </td>` : '';
+
+        const rowBg = txn.flagged && isAdmin ? 'rgba(192,57,43,0.05)' : 'transparent';
 
         tbody.innerHTML += `
-          <tr style="border-bottom:1px solid var(--border);background:${rowBg};transition:background 0.15s;"
-              onmouseover="this.style.background='rgba(255,255,255,0.03)'"
-              onmouseout="this.style.background='${rowBg}'">
-            <td style="padding:0.85rem 1.5rem;font-size:0.78rem;color:var(--muted);white-space:nowrap;">${date}</td>
-            <td style="padding:0.85rem 1rem;font-size:0.82rem;color:var(--white);max-width:220px;">${txn.description}</td>
-            <td style="padding:0.85rem 1rem;font-size:0.75rem;color:var(--muted);">${txn.category}</td>
-            <td style="padding:0.85rem 1rem;font-size:0.88rem;font-weight:600;color:${amtColor};text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;">${amtStr}</td>
-            <td style="padding:0.85rem 1rem;text-align:center;">${statusPill}</td>
-            <td style="padding:0.85rem 1.5rem;text-align:center;">${flagCell}</td>
-          </tr>`;
+        <tr style="border-bottom:1px solid var(--border);background:${rowBg};transition:background 0.15s;"
+            onmouseover="this.style.background='var(--surface-hover)'"
+            onmouseout="this.style.background='${rowBg}'">
+          <td style="padding:0.85rem 1.5rem;font-size:0.75rem;font-family:monospace;color:var(--muted);">${txn.id}</td>
+          <td style="padding:0.85rem 1.5rem;font-size:0.78rem;color:var(--muted);white-space:nowrap;">${date}</td>
+          ${ownerCell}
+          <td style="padding:0.85rem 1rem;font-size:0.82rem;color:var(--text-main);max-width:220px;">${txn.description}</td>
+          <td style="padding:0.85rem 1rem;font-size:0.75rem;color:var(--muted);">${txn.category}</td>
+          <td style="padding:0.85rem 1rem;font-size:0.88rem;font-weight:600;color:${amtColor};text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;">${amtStr}</td>
+          <td style="padding:0.85rem 1rem;text-align:center;">${statusPill}</td>
+          ${flagCell}
+        </tr>`;
       });
-
-      document.getElementById('txn-loading').style.display    = 'none';
-      document.getElementById('txn-table-wrap').style.display = 'block';
-
-    } catch (err) {
-      document.getElementById('txn-loading').style.display  = 'none';
-      document.getElementById('txn-error').style.display    = 'block';
-      document.getElementById('txn-error-msg').textContent  = err.message || 'Could not load transactions.';
     }
-  }
 
-  // ── INIT ──
-  filterCards('active', 'notices-grid', 'notices-empty');
-  renderAnnouncement();
-</script>
+    // ── INIT ──
+    filterCards('active', 'notices-grid', 'notices-empty');
+    renderAnnouncement();
+  </script>
 
 </body>
+
 </html>
