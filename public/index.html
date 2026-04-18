@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SecureBank — Online Banking Portal</title>
+<title>SecureBankIsley — Online Banking Portal</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -1147,7 +1147,7 @@
   <div class="main">
     <div class="topbar">
       <div class="topbar-breadcrumb">
-        SecureBank Portal / <span id="topbar-section">Notice Board</span>
+        SecureBank Isley Portal / <span id="topbar-section">Notice Board</span>
       </div>
       <div class="topbar-right">
         <div class="topbar-time" id="topbar-clock">--:--:--</div>
@@ -1389,19 +1389,63 @@
         </div>
       </div>
 
-      <!-- ══ TRANSACTIONS PLACEHOLDER ══ -->
+      <!-- ══ TRANSACTIONS ══ -->
       <div class="page-view" id="page-transactions">
         <div class="page-header">
           <div class="page-title-group">
             <div class="page-eyebrow">Financial Activity</div>
             <div class="page-title">Transactions</div>
           </div>
+          <div style="display:flex;gap:0.75rem;align-items:center;">
+            <div id="txn-flagged-badge" style="display:none;font-size:0.75rem;font-weight:600;background:rgba(192,57,43,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);border-radius:6px;padding:0.35rem 0.85rem;"></div>
+            <button class="btn-primary" onclick="loadTransactions()">↻ Refresh</button>
+          </div>
         </div>
+
+        <!-- Summary strip -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.25rem;">
+          <div style="background:var(--navy-mid);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;">
+            <div style="font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">Total Transactions</div>
+            <div id="txn-total" style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--white);">—</div>
+          </div>
+          <div style="background:var(--navy-mid);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;">
+            <div style="font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">Flagged / Suspicious</div>
+            <div id="txn-flagged-count" style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:#e74c3c;">—</div>
+          </div>
+          <div style="background:var(--navy-mid);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;">
+            <div style="font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">Account</div>
+            <div id="txn-account" style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--gold);">—</div>
+          </div>
+        </div>
+
         <div class="card">
-          <div class="coming-soon">
-            <div class="coming-soon-icon">💳</div>
-            <div class="coming-soon-title">Coming in Episode 4</div>
-            <div class="coming-soon-sub">Transaction monitoring and anomaly detection</div>
+          <div id="txn-loading" style="padding:4rem;text-align:center;color:var(--muted);font-size:0.85rem;">Loading transactions...</div>
+          <div id="txn-error" style="display:none;padding:3rem;text-align:center;">
+            <div style="font-size:2rem;margin-bottom:0.75rem;">⚠️</div>
+            <div style="font-size:0.85rem;color:#e74c3c;" id="txn-error-msg">Could not load transactions.</div>
+          </div>
+          <div id="txn-table-wrap" style="display:none;overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;">
+              <thead>
+                <tr style="border-bottom:1px solid var(--border);">
+                  <th style="padding:0.85rem 1.5rem;text-align:left;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Date</th>
+                  <th style="padding:0.85rem 1rem;text-align:left;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Description</th>
+                  <th style="padding:0.85rem 1rem;text-align:left;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Category</th>
+                  <th style="padding:0.85rem 1rem;text-align:right;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Amount</th>
+                  <th style="padding:0.85rem 1rem;text-align:center;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Status</th>
+                  <th style="padding:0.85rem 1.5rem;text-align:center;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);">Flag</th>
+                </tr>
+              </thead>
+              <tbody id="txn-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div style="margin-top:1rem;background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:1rem 1.5rem;display:flex;align-items:center;gap:0.75rem;">
+          <span style="font-size:1.1rem;">🔔</span>
+          <div>
+            <div style="font-size:0.8rem;font-weight:600;color:var(--gold);">Episode 4 — Coming next</div>
+            <div style="font-size:0.75rem;color:var(--muted);margin-top:0.2rem;">Splunk automated alerts will fire on flagged transactions. Anomaly detection + incident report generation.</div>
           </div>
         </div>
       </div>
@@ -1585,6 +1629,7 @@
     if (target) target.classList.add('active');
     document.getElementById('topbar-section').textContent = sectionNames[page] || page;
     if (page === 'notices') filterCards('active', 'notices-grid', 'notices-empty');
+    if (page === 'transactions') loadTransactions();
     if (page === 'announcement-create') document.getElementById('create-title').value = '';
   }
 
@@ -1649,6 +1694,85 @@
     });
     const empty = document.getElementById(emptyId);
     if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  // ── TRANSACTIONS ──
+  async function loadTransactions() {
+    const token = localStorage.getItem('sb_token');
+    if (!token) return;
+
+    // Show loading, hide others
+    document.getElementById('txn-loading').style.display = 'block';
+    document.getElementById('txn-error').style.display   = 'none';
+    document.getElementById('txn-table-wrap').style.display = 'none';
+
+    try {
+      const res  = await fetch(`${API}/transactions`, {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || 'Failed to load');
+
+      // Update summary strip
+      document.getElementById('txn-total').textContent         = data.total;
+      document.getElementById('txn-flagged-count').textContent = data.flagged_count;
+      document.getElementById('txn-account').textContent       = data.account;
+
+      // Show flagged badge in header if any flagged
+      const badge = document.getElementById('txn-flagged-badge');
+      if (data.flagged_count > 0) {
+        badge.textContent     = `⚠ ${data.flagged_count} Suspicious`;
+        badge.style.display   = 'block';
+      } else {
+        badge.style.display   = 'none';
+      }
+
+      // Build table rows
+      const tbody = document.getElementById('txn-tbody');
+      tbody.innerHTML = '';
+
+      data.transactions.forEach(txn => {
+        const date    = new Date(txn.date).toLocaleString('en-MY', {
+          day: '2-digit', month: 'short', year: 'numeric',
+          hour: '2-digit', minute: '2-digit', hour12: false
+        });
+        const isDebit  = txn.type === 'debit';
+        const amtColor = isDebit ? '#e74c3c' : '#2ecc71';
+        const amtSign  = isDebit ? '−' : '+';
+        const amtStr   = `${amtSign} RM ${Math.abs(txn.amount).toFixed(2)}`;
+
+        const statusPill = txn.status === 'completed'
+          ? `<span style="font-size:0.68rem;font-weight:600;padding:0.2rem 0.55rem;border-radius:4px;background:rgba(26,122,69,0.15);color:#2ecc71;border:1px solid rgba(46,204,113,0.2);">Completed</span>`
+          : `<span style="font-size:0.68rem;font-weight:600;padding:0.2rem 0.55rem;border-radius:4px;background:rgba(241,196,15,0.1);color:#f1c40f;border:1px solid rgba(241,196,15,0.2);">Pending</span>`;
+
+        const flagCell = txn.flagged
+          ? `<span title="${txn.flag_reason || ''}" style="cursor:help;font-size:0.75rem;font-weight:600;padding:0.2rem 0.6rem;border-radius:4px;background:rgba(192,57,43,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.25);">⚠ Flagged</span>`
+          : `<span style="font-size:0.75rem;color:rgba(255,255,255,0.2);">—</span>`;
+
+        const rowBg = txn.flagged ? 'rgba(192,57,43,0.05)' : 'transparent';
+
+        tbody.innerHTML += `
+          <tr style="border-bottom:1px solid var(--border);background:${rowBg};transition:background 0.15s;"
+              onmouseover="this.style.background='rgba(255,255,255,0.03)'"
+              onmouseout="this.style.background='${rowBg}'">
+            <td style="padding:0.85rem 1.5rem;font-size:0.78rem;color:var(--muted);white-space:nowrap;">${date}</td>
+            <td style="padding:0.85rem 1rem;font-size:0.82rem;color:var(--white);max-width:220px;">${txn.description}</td>
+            <td style="padding:0.85rem 1rem;font-size:0.75rem;color:var(--muted);">${txn.category}</td>
+            <td style="padding:0.85rem 1rem;font-size:0.88rem;font-weight:600;color:${amtColor};text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;">${amtStr}</td>
+            <td style="padding:0.85rem 1rem;text-align:center;">${statusPill}</td>
+            <td style="padding:0.85rem 1.5rem;text-align:center;">${flagCell}</td>
+          </tr>`;
+      });
+
+      document.getElementById('txn-loading').style.display    = 'none';
+      document.getElementById('txn-table-wrap').style.display = 'block';
+
+    } catch (err) {
+      document.getElementById('txn-loading').style.display  = 'none';
+      document.getElementById('txn-error').style.display    = 'block';
+      document.getElementById('txn-error-msg').textContent  = err.message || 'Could not load transactions.';
+    }
   }
 
   // ── INIT ──

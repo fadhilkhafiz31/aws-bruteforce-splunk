@@ -89,9 +89,9 @@ def run_attack():
     # ─────────────────────────────────────
     # STEP 1: Confirm user123 cannot access /admin
     # ─────────────────────────────────────
-    step(1, "Login as normal user (user123 / password123)")
+    step(1, "Login as normal user (user123 / Testing12345)")
 
-    resp = login("user123", "password123")
+    resp = login("user123", "Testing12345")
     if resp.status_code != 200:
         fail(f"Login failed: {resp.json()}")
         return

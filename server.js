@@ -270,7 +270,150 @@ app.get('/admin',
 
 
 // ══════════════════════════════════════════
-// ROUTE 5: POST /logout
+// ROUTE 5: GET /transactions
+// Returns mock transaction history for the logged-in user
+// Requires Bearer token — any valid user can access their own
+// Episode 4 will use this endpoint for anomaly detection:
+// flagged transactions are the "suspicious" ones Splunk watches
+// ══════════════════════════════════════════
+app.get('/transactions',
+  passport.authenticate('bearer', { session: false }),
+  (req, res) => {
+    securityLog({
+      event_type: 'TRANSACTIONS_ACCESSED',
+      endpoint:   '/transactions',
+      src_ip:     req.ip,
+      username:   req.user.username,
+      user_id:    req.user.id,
+      role:       req.user.role,
+      status:     200
+    });
+
+    // Mock transaction data — realistic bank transactions
+    // flagged: true = anomalous transactions for Episode 4 detection
+    const transactions = [
+      {
+        id:          'TXN-20260401-001',
+        date:        '2026-04-01T09:14:22Z',
+        description: 'Salary Credit — MIS Department',
+        amount:      +4200.00,
+        type:        'credit',
+        status:      'completed',
+        flagged:     false,
+        category:    'Income'
+      },
+      {
+        id:          'TXN-20260401-002',
+        date:        '2026-04-01T11:30:05Z',
+        description: 'Online Transfer — Utilities',
+        amount:      -185.50,
+        type:        'debit',
+        status:      'completed',
+        flagged:     false,
+        category:    'Bills'
+      },
+      {
+        id:          'TXN-20260402-003',
+        date:        '2026-04-02T02:47:13Z',  // suspicious: 2:47 AM
+        description: 'International Wire — Unknown Recipient',
+        amount:      -3800.00,
+        type:        'debit',
+        status:      'completed',
+        flagged:     true,
+        flag_reason: 'Unusual hour + large international transfer',
+        category:    'Transfer'
+      },
+      {
+        id:          'TXN-20260402-004',
+        date:        '2026-04-02T08:20:00Z',
+        description: 'Grocery — Lotus Stores',
+        amount:      -62.30,
+        type:        'debit',
+        status:      'completed',
+        flagged:     false,
+        category:    'Food'
+      },
+      {
+        id:          'TXN-20260403-005',
+        date:        '2026-04-03T14:05:44Z',
+        description: 'ATM Withdrawal — Petaling Jaya',
+        amount:      -500.00,
+        type:        'debit',
+        status:      'completed',
+        flagged:     false,
+        category:    'Cash'
+      },
+      {
+        id:          'TXN-20260403-006',
+        date:        '2026-04-03T14:07:02Z',  // suspicious: 2 withdrawals 78 seconds apart
+        description: 'ATM Withdrawal — Kuala Lumpur',
+        amount:      -500.00,
+        type:        'debit',
+        status:      'completed',
+        flagged:     true,
+        flag_reason: 'Duplicate ATM withdrawal — different location, 78 seconds apart',
+        category:    'Cash'
+      },
+      {
+        id:          'TXN-20260404-007',
+        date:        '2026-04-04T10:15:30Z',
+        description: 'Online Purchase — Amazon',
+        amount:      -149.99,
+        type:        'debit',
+        status:      'completed',
+        flagged:     false,
+        category:    'Shopping'
+      },
+      {
+        id:          'TXN-20260404-008',
+        date:        '2026-04-04T10:16:45Z',  // suspicious: same merchant, 75 seconds later
+        description: 'Online Purchase — Amazon',
+        amount:      -149.99,
+        type:        'debit',
+        status:      'pending',
+        flagged:     true,
+        flag_reason: 'Duplicate transaction — same amount, same merchant, 75 seconds apart',
+        category:    'Shopping'
+      },
+      {
+        id:          'TXN-20260405-009',
+        date:        '2026-04-05T16:00:00Z',
+        description: 'Petrol — Shell Station',
+        amount:      -80.00,
+        type:        'debit',
+        status:      'completed',
+        flagged:     false,
+        category:    'Transport'
+      },
+      {
+        id:          'TXN-20260406-010',
+        date:        '2026-04-06T09:00:00Z',
+        description: 'Standing Order — Loan Repayment',
+        amount:      -1200.00,
+        type:        'debit',
+        status:      'completed',
+        flagged:     false,
+        category:    'Loan'
+      }
+    ];
+
+    // Filter by role — admin sees all, user sees own only
+    // Both see flagged indicators — Episode 4 will alert on these
+    const flaggedCount = transactions.filter(t => t.flagged).length;
+
+    return res.json({
+      success:       true,
+      account:       req.user.username,
+      total:         transactions.length,
+      flagged_count: flaggedCount,
+      transactions
+    });
+  }
+);
+
+
+// ══════════════════════════════════════════
+// ROUTE 6: POST /logout
 // Now properly revokes the token in MySQL
 // Sets revoked = 1 instead of deleting — keeps audit trail
 // ══════════════════════════════════════════
@@ -362,10 +505,11 @@ app.listen(PORT, () => {
   console.log('  user123 / password123 → role: user');
   console.log('');
   console.log('  Endpoints:');
-  console.log('  POST /register  → create new user');
-  console.log('  POST /login     → get Bearer token');
-  console.log('  GET  /me        → your profile');
-  console.log('  GET  /admin     → admin only');
-  console.log('  POST /logout    → revoke token');
+  console.log('  POST /register      → create new user');
+  console.log('  POST /login         → get Bearer token');
+  console.log('  GET  /me            → your profile');
+  console.log('  GET  /admin         → admin only');
+  console.log('  GET  /transactions  → transaction history');
+  console.log('  POST /logout        → revoke token');
   console.log('');
 });
