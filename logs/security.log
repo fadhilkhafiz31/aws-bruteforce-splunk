@@ -99,3 +99,25 @@
 {"timestamp":"2026-04-18T13:46:41.851Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
 {"timestamp":"2026-04-18T13:58:02.391Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
 {"timestamp":"2026-04-18T15:03:38.023Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T15:20:58.507Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T15:21:10.228Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T01:24:07.345Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"Jack","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-19T01:24:10.354Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"Jack","user_id":7,"role":"user","status":200}
+{"timestamp":"2026-04-19T01:24:12.412Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"Jack","user_id":7,"role":"user","status":200}
+{"timestamp":"2026-04-19T07:36:03.291Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"admin","user_id":1,"status":200}
+{"timestamp":"2026-04-19T10:24:43.458Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user123","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-19T10:24:50.495Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"user123","user_id":2,"role":"user","status":200}
+{"timestamp":"2026-04-19T10:25:09.228Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"user123","user_id":2,"status":200}
+{"timestamp":"2026-04-19T10:25:14.992Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:28:25.707Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"admin","user_id":1,"status":200}
+{"timestamp":"2026-04-19T10:28:30.285Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:32:10.364Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:32:13.112Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:33:11.602Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:43:11.333Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:43:22.306Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:44:29.569Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"admin","user_id":1,"status":200}
+{"timestamp":"2026-04-19T10:44:34.674Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:44:37.292Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:49:09.594Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:49:20.398Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}

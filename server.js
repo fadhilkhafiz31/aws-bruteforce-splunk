@@ -16,7 +16,8 @@ fs.mkdirSync(path.join(__dirname, 'logs'), { recursive: true });
 
 function securityLog(event) {
   const entry = JSON.stringify({
-    timestamp: new Date().toISOString(),
+    // Ensure the timestamp includes milliseconds
+    timestamp: new Date().toISOString().slice(0, 23).replace('T', ' '),
     ...event
   });
   // 1. Write to file — Splunk reads this

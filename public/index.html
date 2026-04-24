@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SecureBankIsley — Online Banking Portal</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap"
-    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-body: #f4f6f8;
@@ -50,7 +50,7 @@
     }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'IBM Plex Sans', sans-serif;
       background: var(--bg-body);
       color: var(--text-main);
       min-height: 100vh;
@@ -79,25 +79,11 @@
     }
 
     .login-left::before {
-      content: '';
-      position: absolute;
-      top: -120px;
-      left: -120px;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, var(--primary-dim) 0%, transparent 70%);
-      pointer-events: none;
+      display: none;
     }
 
     .login-left::after {
-      content: '';
-      position: absolute;
-      bottom: -80px;
-      right: -80px;
-      width: 350px;
-      height: 350px;
-      background: radial-gradient(circle, var(--primary-dim) 0%, transparent 70%);
-      pointer-events: none;
+      display: none;
     }
 
     .bank-wordmark {
@@ -110,7 +96,7 @@
     .bank-icon {
       width: 44px;
       height: 44px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+      background: linear-gradient(135deg, var(--primary), var(--primary-dim));
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -120,19 +106,19 @@
     }
 
     .bank-name {
-      font-family: 'DM Serif Display', serif;
+      font-family: 'IBM Plex Sans', sans-serif; font-weight: 700;
       font-size: 1.5rem;
       color: var(--text-main);
       letter-spacing: 0.02em;
     }
 
     .bank-name span {
-      color: var(--gold);
+      color: var(--primary);
     }
 
     .hero-headline {
-      font-family: 'DM Serif Display', serif;
-      font-size: 3.2rem;
+      font-family: 'IBM Plex Sans', sans-serif; font-weight: 700;
+      font-size: 2.8rem;
       line-height: 1.2;
       color: var(--text-main);
       margin-bottom: 1.5rem;
@@ -141,12 +127,12 @@
 
     .hero-headline em {
       font-style: italic;
-      color: var(--gold);
+      color: var(--primary);
     }
 
     .hero-sub {
       font-size: 0.95rem;
-      color: var(--muted);
+      color: var(--text-muted);
       line-height: 1.7;
       max-width: 400px;
       margin-bottom: 3rem;
@@ -164,7 +150,7 @@
       gap: 0.5rem;
       font-size: 0.75rem;
       font-weight: 500;
-      color: var(--muted);
+      color: var(--text-muted);
       background: var(--surface-hover);
       border: 1px solid var(--border);
       border-radius: 20px;
@@ -175,16 +161,12 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--gold);
+      background: var(--primary);
     }
 
     /* Decorative grid lines */
     .grid-lines {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      opacity: 0.04;
+      display: none;
     }
 
     .grid-lines::before {
@@ -192,8 +174,8 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(var(--gold) 1px, transparent 1px),
-        linear-gradient(90deg, var(--gold) 1px, transparent 1px);
+        linear-gradient(var(--primary) 1px, transparent 1px),
+        linear-gradient(90deg, var(--primary) 1px, transparent 1px);
       background-size: 60px 60px;
     }
 
@@ -212,19 +194,6 @@
     .login-panel {
       width: 100%;
       max-width: 360px;
-      animation: fadeUp 0.5s ease;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(16px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
     }
 
     .panel-header {
@@ -236,12 +205,12 @@
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--primary);
       margin-bottom: 0.6rem;
     }
 
     .panel-title {
-      font-family: 'DM Serif Display', serif;
+      font-family: 'IBM Plex Sans', sans-serif; font-weight: 700;
       font-size: 2rem;
       color: var(--text-main);
       line-height: 1.2;
@@ -249,7 +218,7 @@
 
     .panel-subtitle {
       font-size: 0.82rem;
-      color: var(--muted);
+      color: var(--text-muted);
       margin-top: 0.4rem;
     }
 
@@ -277,11 +246,11 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: var(--text-muted);
     }
 
     .field-input {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'IBM Plex Sans', sans-serif;
       font-size: 0.875rem;
       color: var(--text-main);
       background: var(--surface-hover);
@@ -298,7 +267,7 @@
 
     .field-input:focus {
       outline: none;
-      border-color: var(--gold);
+      border-color: var(--primary);
       background: var(--primary-dim);
       box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
     }
@@ -320,22 +289,21 @@
 
     .btn-signin {
       width: 100%;
-      background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+      background: linear-gradient(135deg, var(--primary), var(--primary-dim));
       color: var(--bg-body);
       border: none;
       padding: 0.9rem;
       border-radius: 8px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'IBM Plex Sans', sans-serif;
       font-size: 0.9rem;
       font-weight: 600;
       cursor: pointer;
       letter-spacing: 0.02em;
-      transition: opacity 0.2s, transform 0.1s, box-shadow 0.2s;
+      transition: transform 0.1s, box-shadow 0.2s;
       box-shadow: 0 4px 20px var(--primary-dim);
     }
 
     .btn-signin:hover {
-      opacity: 0.92;
       transform: translateY(-1px);
       box-shadow: 0 6px 24px var(--primary-dim);
     }
@@ -359,12 +327,12 @@
 
     .security-note {
       font-size: 0.72rem;
-      color: var(--muted);
+      color: var(--text-muted);
       line-height: 1.6;
     }
 
     .security-note strong {
-      color: rgba(255, 255, 255, 0.45);
+      color: var(--text-main);
     }
 
     /* ═══════════════════════════
@@ -405,7 +373,7 @@
     .sidebar-bank-icon {
       width: 36px;
       height: 36px;
-      background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+      background: linear-gradient(135deg, var(--primary), var(--primary-dim));
       border-radius: 8px;
       display: flex;
       align-items: center;
@@ -414,13 +382,13 @@
     }
 
     .sidebar-bank-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.1rem;
+      font-family: 'IBM Plex Sans', sans-serif; font-weight: 700;
+      font-size: 1rem;
       color: var(--text-main);
     }
 
     .sidebar-bank-name span {
-      color: var(--gold);
+      color: var(--primary);
     }
 
     .user-card {
@@ -440,8 +408,8 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold-dim), var(--bg-soft));
-      border: 2px solid var(--gold);
+      background: linear-gradient(135deg, var(--primary-dim), var(--bg-soft));
+      border: 2px solid var(--primary);
       color: var(--text-main);
       font-weight: 700;
       font-size: 0.85rem;
@@ -467,7 +435,7 @@
 
     .user-role {
       font-size: 0.7rem;
-      color: var(--gold);
+      color: var(--primary);
       margin-top: 0.1rem;
     }
 
@@ -524,9 +492,9 @@
     }
 
     .nav-item.active {
-      color: var(--gold);
+      color: var(--primary);
       background: var(--primary-dim);
-      border-left-color: var(--gold);
+      border-left-color: var(--primary);
       font-weight: 500;
     }
 
@@ -542,7 +510,7 @@
       font-size: 0.65rem;
       font-weight: 600;
       background: var(--primary-dim);
-      color: var(--gold);
+      color: var(--primary);
       border-radius: 10px;
       padding: 0.15rem 0.5rem;
     }
@@ -617,7 +585,7 @@
 
     .topbar-alert {
       font-size: 0.72rem;
-      color: var(--gold);
+      color: var(--primary);
       background: var(--primary-dim);
       border: 1px solid var(--border);
       border-radius: 6px;
@@ -637,7 +605,6 @@
 
     .page-view.active {
       display: block;
-      animation: fadeUp 0.25s ease;
     }
 
     /* PAGE HEADER */
@@ -661,12 +628,12 @@
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--primary);
       margin-bottom: 0.3rem;
     }
 
     .page-title {
-      font-family: 'DM Serif Display', serif;
+      font-family: 'IBM Plex Sans', sans-serif; font-weight: 700;
       font-size: 1.75rem;
       color: var(--text-main);
     }
@@ -723,8 +690,8 @@
     }
 
     .tab.active {
-      color: var(--gold);
-      border-bottom-color: var(--gold);
+      color: var(--primary);
+      border-bottom-color: var(--primary);
       font-weight: 600;
     }
 
@@ -755,9 +722,8 @@
       left: 0;
       width: 3px;
       height: 100%;
-      background: var(--gold);
-      opacity: 0;
-      transition: opacity 0.2s;
+      background: var(--primary);
+      opacity: 1;
     }
 
     .notice-card:hover {
@@ -765,10 +731,6 @@
       background: var(--surface-hover);
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    }
-
-    .notice-card:hover::before {
-      opacity: 1;
     }
 
     .notice-badge {
@@ -894,11 +856,11 @@
     }
 
     .back-btn:hover {
-      color: var(--gold);
+      color: var(--primary);
     }
 
     .detail-title-large {
-      font-family: 'DM Serif Display', serif;
+      font-family: 'IBM Plex Sans', sans-serif; font-weight: 700;
       font-size: 1.4rem;
       color: var(--text-main);
       line-height: 1.4;
@@ -984,7 +946,7 @@
 
     .form-input,
     .form-textarea {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'IBM Plex Sans', sans-serif;
       font-size: 0.875rem;
       color: var(--text-main);
       background: var(--surface-hover);
@@ -1005,7 +967,7 @@
     .form-input:focus,
     .form-textarea:focus {
       outline: none;
-      border-color: var(--gold);
+      border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
       background: rgba(201, 168, 76, 0.03);
     }
@@ -1036,21 +998,20 @@
 
     /* BUTTONS */
     .btn-primary {
-      background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+      background: linear-gradient(135deg, var(--primary), var(--primary-dim));
       color: var(--bg-body);
       border: none;
       padding: 0.65rem 1.5rem;
       border-radius: 7px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'IBM Plex Sans', sans-serif;
       font-size: 0.82rem;
       font-weight: 600;
       cursor: pointer;
-      transition: opacity 0.2s, transform 0.1s;
+      transition: transform 0.1s;
       letter-spacing: 0.01em;
     }
 
     .btn-primary:hover {
-      opacity: 0.88;
       transform: translateY(-1px);
     }
 
@@ -1060,11 +1021,11 @@
 
     .btn-ghost {
       background: transparent;
-      color: var(--gold);
+      color: var(--primary);
       border: 1px solid var(--primary-dim);
       padding: 0.65rem 1.5rem;
       border-radius: 7px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'IBM Plex Sans', sans-serif;
       font-size: 0.82rem;
       font-weight: 500;
       cursor: pointer;
@@ -1073,7 +1034,7 @@
 
     .btn-ghost:hover {
       background: var(--primary-dim);
-      border-color: var(--gold);
+      border-color: var(--primary);
     }
 
     /* MODAL */
@@ -1100,20 +1061,7 @@
       width: 100%;
       max-width: 380px;
       box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
-      animation: popIn 0.22s ease;
       text-align: center;
-    }
-
-    @keyframes popIn {
-      from {
-        opacity: 0;
-        transform: scale(0.92) translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
     }
 
     .modal-icon {
@@ -1122,7 +1070,7 @@
     }
 
     .modal-title {
-      font-family: 'DM Serif Display', serif;
+      font-family: 'IBM Plex Sans', sans-serif; font-weight: 700;
       font-size: 1.2rem;
       color: var(--text-main);
       margin-bottom: 0.6rem;
@@ -1158,7 +1106,7 @@
     }
 
     .coming-soon-title {
-      font-family: 'DM Serif Display', serif;
+      font-family: 'IBM Plex Sans', sans-serif; font-weight: 700;
       font-size: 1.4rem;
       color: rgba(255, 255, 255, 0.3);
       margin-bottom: 0.5rem;
@@ -1189,16 +1137,15 @@
 
       <div class="bank-wordmark">
         <div class="bank-icon">🏦</div>
-        <div class="bank-name">Secure<span>Bank</span></div>
+        <div class="bank-name"> <span>Bank </span>Isley</div>
       </div>
 
-      <h1 class="hero-headline">
-        Banking built for the<br><em>digital age.</em>
-      </h1>
+      <h2 class="hero-headline">
+        Confidence in every<br><em>online transaction.</em>
+      </h2>
 
       <p class="hero-sub">
-        Enterprise-grade security with real-time fraud detection.
-        Every session monitored. Every transaction protected.
+        Built for compliance, resilience, and secure daily operations.
       </p>
 
       <div class="security-badges">
@@ -1265,13 +1212,13 @@
       <div class="sidebar-header">
         <div class="sidebar-bank">
           <div class="sidebar-bank-icon">🏦</div>
-          <div class="sidebar-bank-name">Secure <span>Bank </span>Isley</div>
+          <div class="sidebar-bank-name"><span>Bank </span>Isley</div>
         </div>
         <div class="user-card">
           <div class="user-card-top">
             <div class="user-avatar" id="sb-avatar">A</div>
             <div class="user-info">
-              <div class="user-name" id="sb-displayname">Admin</div>
+              <div class="user-name" id="sb-displayname">Fraud Analyst</div>
               <div class="user-role" id="sb-role">Branch Administrator</div>
             </div>
           </div>
@@ -1588,7 +1535,7 @@
               <div
                 style="font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">
                 Total Transactions</div>
-              <div id="txn-total" style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--text-main);">—
+              <div id="txn-total" style="font-family:'IBM Plex Sans',sans-serif;font-weight:700;letter-spacing:0.01em; color:var(--primary);">—
               </div>
             </div>
             <div
@@ -1596,7 +1543,7 @@
               <div
                 style="font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">
                 Flagged / Suspicious</div>
-              <div id="txn-flagged-count" style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:#e74c3c;">—
+              <div id="txn-flagged-count" style="font-family:'IBM Plex Sans',sans-serif;font-weight:700;letter-spacing:0.01em; color:#e74c3c;">—
               </div>
             </div>
             <div
@@ -1604,11 +1551,10 @@
               <div
                 style="font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">
                 Account</div>
-              <div id="txn-account" style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--gold);">—
+              <div id="txn-account" style="font-family:'IBM Plex Sans',sans-serif;font-weight:700;letter-spacing:0.01em; color:var(--primary);">—
               </div>
             </div>
           </div>
-
           <div class="card">
             <div id="txn-loading" style="padding:4rem;text-align:center;color:var(--muted);font-size:0.85rem;">Loading
               transactions...</div>
@@ -1655,7 +1601,7 @@
             style="margin-top:1rem;background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:1rem 1.5rem;display:flex;align-items:center;gap:0.75rem;">
             <span style="font-size:1.1rem;">🔔</span>
             <div>
-              <div style="font-size:0.8rem;font-weight:600;color:var(--gold);">Episode 4 — Coming next</div>
+              <div style="font-size:0.8rem;font-weight:600;color:var(--primary);">Episode 4 — Coming next</div>
               <div style="font-size:0.75rem;color:var(--muted);margin-top:0.2rem;">Splunk automated alerts will fire on
                 flagged transactions. Anomaly detection + incident report generation.</div>
             </div>
@@ -1699,7 +1645,7 @@
   </div>
 
   <script>
-    const API = 'http://localhost:3000';
+    const API = ''; // Set to empty string to use relative path, or specify full URL if backend is on a different origin
     let cachedTransactions = [];
 
     // ── LOGIN ──
@@ -1961,7 +1907,8 @@
         // Update summary strip
         document.getElementById('txn-total').textContent = data.total;
         document.getElementById('txn-flagged-count').textContent = data.flagged_count;
-        document.getElementById('txn-account').textContent = data.account;
+        const accountLabel = data.account === 'admin' ? 'Fraud Analyst' : data.account;
+        document.getElementById('txn-account').textContent = accountLabel;
 
         // Show flagged badge in header if any flagged
         const badge = document.getElementById('txn-flagged-badge');
@@ -2018,9 +1965,10 @@
             : `<span style="font-size:0.75rem;color:rgba(255,255,255,0.2);">—</span>`
           }</td>` : '';
 
+        const ownerLabel = txn.owner === 'admin' ? 'Fraud Analyst' : txn.owner;
         const ownerCell = isAdmin ?
-          `<td style="padding:0.85rem 1rem;font-size:0.75rem;color:var(--gold);font-weight:500;">
-             <div>👤 ${txn.owner}</div>
+          `<td style="padding:0.85rem 1rem;font-size:0.75rem;color:var(--primary);font-weight:500;">
+             <div>👤 ${ownerLabel}</div>
              <div style="font-size:0.65rem;color:var(--muted);margin-top:2px;">UID: ${txn.owner_uid || '?'}</div>
            </td>` : '';
 

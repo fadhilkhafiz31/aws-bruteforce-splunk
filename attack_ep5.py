@@ -27,7 +27,7 @@ import random
 import json
 from datetime import datetime
 
-BASE_URL = "http://localhost:3000"
+BASE_URL = "http://13.54.230.14:3000"
 
 # ── ANSI colors ──
 RED    = "\033[91m"
@@ -61,7 +61,7 @@ WORDLIST = [
     "trustno1", "batman", "baseball", "access", "mustang",
     "hockey", "dallas", "passw0rd", "1qaz2wsx", "starwars",
     "whatever", "zxcvbn", "654321", "777777", "donald",
-    "freedom", "hunter", "ranger", "tigger", "soccer",
+    "freedom", "hunter", "ranger", "tigger", "soccer", "Testing12345","admin123",
     "batman123", "wrongpass_final"  # last one always fails too
 ]
 
