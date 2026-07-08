@@ -1,210 +1,88 @@
-# 🔐 Built the Lock. Picked the Lock. Then Called the Cops on Myself.
+# SecureBank — Auth Attack & Detection Lab
 
-**A hands-on penetration testing and detection lab — built, attacked, and defended by one person.**
+A self-built OAuth2 banking application, deployed to AWS, attacked with real tooling, and monitored for the attacks. Built end to end by one person to learn how authentication attacks work and how they show up in logs.
 
-> Fadhil Khafiz · Software Engineering Intern · Cybersecurity Side Project 2026
+> Fadhil Khafiz · Information Security & Assurance · 2026
 
 ---
 
-## What This Project Is
+## What This Is
 
-This is not a CTF writeup. This is not a tutorial I followed.
+I built a deliberately attackable OAuth2 authentication server from scratch, deployed it to a live AWS EC2 instance, ran credential brute-force attacks against it from Kali Linux, and used AWS CloudWatch and a MySQL audit table to detect and investigate those attacks.
 
-I designed a vulnerable banking application from scratch, deployed it to the cloud, attacked it using real tools, and built the detection layers that caught every attack. Each episode adds a new attack technique or a new defense layer — documented for anyone who wants to understand what actually happens during a security incident.
-
-**Target audience for this repo:** SOC Analyst and Cloud Security Analyst recruiters, hiring managers, and anyone evaluating hands-on security work.
+Every security event the app produces is written to two places at once: a JSON log file and a MySQL `security_events` table. That dual-logging design is what makes the detection work.
 
 ---
 
 ## Project Status
 
-| Episode | Type | Focus | Status |
-|---------|------|-------|--------|
-| Episode 1 | ⚙️ Setup | Build vulnerable OAuth2 server | ✅ Done |
-| Episode 2 | 🔴 Attack + 🔵 Defense | Credential stuffing + Splunk detection | ✅ Done |
-| Episode 3 | 🔴 Attack | JWT token hijacking + replay | ✅ Done |
-| Episode 4 | 🔵 Defense | Automated Splunk alerting | ✅ Done |
-| Episode 5 | ⚙️ Setup + 🔴 Attack | AWS EC2 deploy + cloud attack simulation | ✅ Done |
-| Episode 6 | 🔵 Defense | Raw Linux log analysis | 🔄 In Progress |
-| Episode 7 | ⚙️ Setup | Azure Active Directory setup | ⬜ Upcoming |
-| Episode 8 | 🔴 Attack | Password spray against Azure AD | ⬜ Upcoming |
+Honest status — only ticked items are actually built and evidenced in this repo.
+
+| Part | Focus | Status |
+|------|-------|--------|
+| Auth server | OAuth2 server, bcrypt, token store, dual security logging | Built |
+| Attack — local | Credential stuffing with Burp Suite / Python | Built |
+| Attack — cloud | Remote brute force from Kali against live EC2 | Built (see `/assets`) |
+| Detection — cloud | CloudWatch VPC Flow Log analysis + MySQL audit trail | Built (see `/assets`) |
+| Token replay logic | IP-mismatch detection coded in `/admin` route | Coded, not yet demonstrated end-to-end |
+| Detection — SIEM | Splunk ingestion of `security.log` + brute-force search | Not built yet — in progress |
+| Automated alerting | Scheduled alert + incident summary script | Not built yet |
+| Azure AD / password spray | Entra ID setup + spray detection | Not planned for this phase |
 
 ---
 
 ## Tech Stack
 
+Only what is actually used in this repo.
+
 | Layer | Tools |
 |-------|-------|
-| Target Application | Node.js, Express, Passport.js, oauth2orize, bcrypt |
-| Attack Simulation | Burp Suite, Python (custom scripts), Kali Linux |
-| SIEM / Detection | Splunk Enterprise (SPL), Microsoft Sentinel (KQL) |
-| Cloud Infrastructure | AWS EC2, AWS GuardDuty, CloudWatch Log Analytics |
-| Identity & Access | Azure Entra ID (Active Directory) |
-| Database | MySQL |
-| Reverse Proxy | Caddy |
-| Lab Environment | VirtualBox, Kali Linux |
+| Auth application | Node.js, Express, Passport.js, oauth2orize, bcryptjs |
+| Database | MySQL (mysql2) |
+| Attack simulation | Kali Linux, Python, Burp Suite |
+| Cloud infrastructure | AWS EC2 (t3.micro, Ubuntu), CloudWatch, VPC Flow Logs |
+| Reverse proxy | Caddy |
+
+Planned but not yet integrated: Splunk (SIEM correlation of `security.log`).
 
 ---
 
-## Episode 1 — Building the Lock
+## The Auth Server (Built)
 
-**Type:** ⚙️ Setup | **Difficulty:** ⭐ Beginner
+A working OAuth2 authorization-code-grant server with real security engineering:
 
-### What I built
-A deliberately vulnerable OAuth2 banking server — the target for every attack that follows.
+- Passport LocalStrategy (login) and BearerStrategy (protected routes)
+- bcrypt password hashing (work factor 10) — plaintext passwords never touch the DB
+- Access tokens stored in MySQL with `issued_ip` and `created_at` metadata
+- Token revocation on logout sets `revoked = 1` instead of deleting — keeps an audit trail
+- Role-based access control on `/admin`
+- Every security event dual-logged to `logs/security.log` (JSON) and MySQL `security_events`
 
-- Node.js + Express REST API with `/login` and `/token` endpoints
-- Passport.js with LocalStrategy and BearerStrategy
-- oauth2orize authorization code grant flow
-- bcrypt password hashing (work factor: 10, with salt)
-
-### Why bcrypt with salt matters
-Without salt, two users with the same password produce identical hashes. An attacker with a pre-computed rainbow table can crack thousands of passwords instantly. bcrypt adds a unique random salt before hashing, making every hash unique even for identical passwords.
-
-```js
-const hash = bcrypt.hashSync('admin123', 10);
-// Output: $2a$10$bbc.ZA1Pca.Qxv.xmQSXSOIxHFA7STjc3KcNRwvqoTr1OZ2RZkGD.
-//                  ^^^ work factor — runs 2^10 = 1024 rounds
-```
-
-The `$2a$10$` prefix encodes the algorithm, version, and cost factor directly in the hash.
+Endpoints: `/register`, `/login`, `/me`, `/admin`, `/transactions`, `/logout`, plus OAuth2 `/oauth/authorize` and `/oauth/token`.
 
 ---
 
-## Episode 2 — Picking the Lock + Calling the Cops
+## Attack + Detection in the Cloud (Built)
 
-**Type:** 🔴 Attack + 🔵 Defense | **Difficulty:** ⭐ Beginner
+The app was deployed to a live AWS EC2 instance with a real public IP, then attacked remotely from a separate Kali Linux machine.
 
-### Attack: Credential Stuffing with Burp Suite
+**Attack:** A Python brute-force script ran 54 login attempts against the live EC2 public IP. Attempt 52 (`admin123`) returned `LOGIN_SUCCESS`; every other attempt returned `401`.
 
-1. Captured a `POST /login` request in Burp Proxy
-2. Sent to Intruder → Sniper mode, payload position on `password` field
-3. Loaded a 30-entry wordlist
-4. Fired 30 requests — 29 returned `401`, 1 returned `200`
-5. **Payload 27 — `admin123` — cracked**
+**Detection — MySQL audit trail:** All 54 attempts landed in the `security_events` table on the EC2 host — 53 `LOGIN_FAILED` and 1 `LOGIN_SUCCESS`, all from the attacker's source IP, with millisecond timestamps.
 
-### Detection: Splunk SIEM
+**Detection — CloudWatch:** VPC Flow Logs were queried in CloudWatch Log Insights to visualise the traffic, breaking down ACCEPT vs REJECT counts by destination port during the attack window.
 
-Security events written to `security.log` as structured JSON, ingested into Splunk Enterprise.
+Screenshots of all of the above are in [`/assets`](./assets):
 
-**Brute force detection query (5-minute window, threshold 10):**
-```spl
-index=main sourcetype=_json
-| spath event_type | spath src_ip
-| search event_type="LOGIN_FAILED"
-| bucket _time span=5m
-| stats count by src_ip, _time
-| where count >= 10
-```
+| File | Shows |
+|------|-------|
+| `ep5_ec2_instances.png` | Live EC2 instance running |
+| `ep5_bankIsley_project.png` | App live on the public IP |
+| `ep5_kali_brute_force_attack_hit.png` | Kali brute force, 54 attempts, hit on attempt 52 |
+| `ep5_mysql_audit_log.png` | `security_events` table capturing the attack |
+| `ep5_cloudwatch_analytics.png` | CloudWatch VPC Flow Log breakdown |
 
-**Dashboard built (5 panels):**
-
-| Panel | Chart Type |
-|-------|-----------|
-| Top Attacking IPs | Bar Chart |
-| Attack Timeline | Line Chart |
-| Targeted Usernames | Bar Chart |
-| Failed vs Success Ratio | Pie Chart |
-| Threat Correlation | Table |
-
-**Results:** 137 LOGIN_FAILED events from a single IP, clearly spiked on the timeline, all targeting the `admin` account.
-
----
-
-## Episode 3 — The Key Was Already in the Door
-
-**Type:** 🔴 Attack | **Difficulty:** ⭐ Beginner-Intermediate
-
-### Attack: JWT Token Hijacking + Replay
-
-After a legitimate login, the Bearer token was stolen and replayed from a different IP to impersonate the authenticated user — without ever knowing the password.
-
-```python
-import requests
-headers = {'Authorization': f'Bearer {stolen_token}'}
-r = requests.get('http://localhost:3000/me', headers=headers)
-print(r.json())
-```
-
-**Detection:** Splunk alert on token reuse from a different source IP than the original session.
-
----
-
-## Episode 4 — Teaching the Cop to Call Itself
-
-**Type:** 🔵 Defense | **Difficulty:** ⭐ Beginner-Intermediate
-
-### Defense: Automated Splunk Alerting
-
-- Splunk scheduled alert triggers on brute force and JWT replay thresholds
-- Python script auto-parses `security.log` and generates a plain-English incident summary report
-- Simulated repeated attacks to validate alert thresholds end-to-end
-
----
-
-## Episode 5 — Taking SecureBank to the Cloud
-
-**Type:** ⚙️ Setup + 🔴 Attack | **Difficulty:** ⭐⭐ Intermediate
-
-### Infrastructure
-
-Deployed the full application stack to a live AWS EC2 instance — real public IP, real internet exposure.
-
-| Component | Detail |
-|-----------|--------|
-| Compute | AWS EC2 (t3.micro, Ubuntu) |
-| Reverse Proxy | Caddy (automatic HTTPS routing) |
-| Database | MySQL — all security events persisted |
-| Monitoring | AWS CloudWatch Log Analytics (VPC Flow Logs) |
-
-### Attack: Remote Brute Force from Kali Linux
-
-Launched a concurrent Python credential brute-force framework from a separate Kali Linux VM against the live EC2 public IP.
-
-**Result:**
-- 54 total attempts
-- Payload 52 — `admin123` — `LOGIN_SUCCESS`
-- Every event captured in MySQL in real time:
-
-```
-LOGIN_FAILED  × 53  |  src_ip: ::ffff:180.74.71.67  |  timestamps logged
-LOGIN_SUCCESS × 1   |  12:34:07.911
-```
-
-### Detection: CloudWatch Log Analytics
-
-Queried VPC flow logs to visualize the attack traffic spike:
-
-```
-fields @timestamp, srcAddr, dstAddr, dstPort, action
-| filter srcAddr = '<attacker_ip>'
-| stats count(*) by action, dstPort
-| sort @timestamp desc
-```
-
-Port 3000 and Port 3500 traffic clearly visible — ACCEPT and REJECT events correlated with the attack window.
-
----
-
-## Detection Coverage Map
-
-| Attack | Detection Layer | Query / Method |
-|--------|----------------|----------------|
-| Credential stuffing | Splunk SPL | Bucket + threshold on LOGIN_FAILED |
-| JWT token replay | Splunk SPL | IP mismatch on Bearer token reuse |
-| Remote brute force (cloud) | MySQL + CloudWatch | VPC flow log spike, DB audit trail |
-| Password spray (AD) | Azure Sentinel (upcoming) | KQL — spray pattern detection |
-
----
-
-## MITRE ATT&CK Coverage (Episodes 1–5)
-
-| Technique ID | Name | Episode |
-|-------------|------|---------|
-| T1110.001 | Brute Force: Password Guessing | Episode 2 |
-| T1528 | Steal Application Access Token (JWT) | Episode 3 |
-| T1110.003 | Brute Force: Password Spraying | Episode 8 (upcoming) |
-| T1078 | Valid Accounts | Episodes 2, 3, 5 |
+> Note: `logs/security.log` in this repo contains local development traffic (localhost `::1`), not the cloud attack. The cloud attack evidence lives in the EC2 MySQL table, shown in the screenshots above.
 
 ---
 
@@ -212,16 +90,15 @@ Port 3000 and Port 3500 traffic clearly visible — ACCEPT and REJECT events cor
 
 ```
 authentication-mock-up/
-├── server.js              # Node.js OAuth2 server with security event logger
+├── server.js           # OAuth2 server + dual security logger
+├── auth.js             # Passport strategies (Local + Bearer)
+├── db.js               # MySQL access layer
 ├── attack/
-│   ├── bruteforce.py      # Credential stuffing script (Ep 2, 5)
-│   └── jwt_replay.py      # JWT token hijack + replay (Ep 3)
-├── detection/
-│   └── alert_parser.py    # Auto-parse security.log → incident summary (Ep 4)
+│   ├── attack.py       # Credential stuffing (local)
+│   └── attack_ep5.py   # Remote brute force against EC2
 ├── logs/
-│   └── security.log       # Structured JSON security events (Splunk input)
-├── splunk/
-│   └── queries.spl        # All detection SPL queries
+│   └── security.log    # JSON security events (local dev traffic)
+├── assets/             # Screenshots of the cloud attack + detection
 └── README.md
 ```
 
@@ -229,40 +106,25 @@ authentication-mock-up/
 
 ## How to Run
 
-### 1. Install dependencies
 ```bash
 npm install
+node server.js          # runs at http://localhost:3000
 ```
 
-### 2. Start the server
+Simulate a local attack:
+
 ```bash
-node server.js
-# Runs at http://localhost:3000
+python attack/attack.py
 ```
-
-Demo credentials: `admin` / `admin123`
-
-### 3. Simulate brute force
-```bash
-python attack/bruteforce.py --target http://localhost:3000 --wordlist wordlist.txt
-```
-
-### 4. Ingest logs into Splunk
-- Settings → Data Inputs → Files & Directories
-- Path: `/path/to/logs/security.log`
-- Source type: `_json`
 
 ---
 
-## References
+## Roadmap (Not Yet Built)
 
-- [oauth2orize](https://github.com/jaredhanson/oauth2orize)
-- [Passport.js](https://www.passportjs.org/)
-- [Splunk SPL Reference](https://docs.splunk.com/Documentation/Splunk/latest/SearchReference)
-- [Burp Suite Intruder](https://portswigger.net/burp/documentation/desktop/tools/intruder)
-- [MITRE ATT&CK](https://attack.mitre.org/)
-- [AWS GuardDuty](https://aws.amazon.com/guardduty/)
+- Ingest `logs/security.log` into Splunk and write a brute-force detection search (threshold on `LOGIN_FAILED` per `src_ip` over a time window)
+- Demonstrate the coded token-replay detection end-to-end and capture the `TOKEN_REPLAY_DETECTED` event
+- Scheduled alerting + a script that turns raw events into a plain-English incident summary
 
 ---
 
-*Last updated: April 2026 · Maintained by Fadhil Khafiz*
+*Maintained by Fadhil Khafiz*
