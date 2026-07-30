@@ -1,0 +1,128 @@
+{"timestamp":"2026-03-17T03:39:42.409Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":"1","status":200}
+{"timestamp":"2026-03-17T03:47:24.602Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":"1","status":200}
+{"timestamp":"2026-03-17T03:48:42.334Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"admin","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-03-24T14:59:33.576Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":"1","status":200}
+{"timestamp":"2026-04-09T01:49:30.436Z","event_type":"REGISTER_SUCCESS","endpoint":"/register","src_ip":"::1","username":"fadhil","user_id":6,"status":201}
+{"timestamp":"2026-04-09T01:53:45.580Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"fadhil","user_id":6,"role":"user","status":200}
+{"timestamp":"2026-04-12T09:53:55.172Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user123","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-12T10:00:13.009Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user123","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-12T10:00:44.998Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-12T10:00:51.465Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"admin","user_id":1,"status":200}
+{"timestamp":"2026-04-12T10:00:59.823Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user","status":401,"reason":"User not found"}
+{"timestamp":"2026-04-12T10:01:07.077Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user123","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-12T10:04:31.925Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user123","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-12T10:06:25.474Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user123","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-12T10:25:51.284Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"user123","user_id":2,"role":"user","status":200}
+{"timestamp":"2026-04-12T10:32:35.167Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"user123","user_id":2,"role":"user","status":200}
+{"timestamp":"2026-04-12T10:32:53.372Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"user123","user_id":2,"status":200}
+{"timestamp":"2026-04-12T10:33:00.595Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"admin","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-12T10:33:05.245Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-12T10:33:12.354Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"admin","user_id":1,"status":200}
+{"timestamp":"2026-04-12T10:36:20.299Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"user123","user_id":2,"role":"user","status":200}
+{"timestamp":"2026-04-12T10:37:08.861Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"user123","user_id":2,"status":200}
+{"timestamp":"2026-04-12T10:37:15.648Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-13T00:49:21.251Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"admin","user_id":1,"status":200}
+{"timestamp":"2026-04-13T00:53:36.634Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"user123","user_id":2,"role":"user","status":200}
+{"timestamp":"2026-04-13T03:48:04.961Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user123","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-13T03:49:15.264Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user123","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-13T03:49:31.201Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"user123","user_id":2,"role":"user","status":200}
+{"timestamp":"2026-04-13T03:49:31.721Z","event_type":"UNAUTHORIZED_ACCESS","endpoint":"/admin","src_ip":"::1","username":"user123","role":"user","status":403,"reason":"insufficient_role"}
+{"timestamp":"2026-04-13T03:49:32.357Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-13T03:49:32.866Z","event_type":"ADMIN_ACCESS","endpoint":"/admin","src_ip":"::1","username":"admin","role":"admin","status":200}
+{"timestamp":"2026-04-18T11:01:18.150Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"admin","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-18T11:02:12.902Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:02:15.074Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"admin","user_id":1,"status":200}
+{"timestamp":"2026-04-18T11:02:19.682Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user123","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-18T11:02:24.680Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"user123","user_id":2,"role":"user","status":200}
+{"timestamp":"2026-04-18T11:02:29.207Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"user123","user_id":2,"status":200}
+{"timestamp":"2026-04-18T11:17:31.527Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"user123","user_id":2,"status":200}
+{"timestamp":"2026-04-18T11:17:39.228Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:34:09.307Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:34:11.241Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:50:24.536Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:50:25.611Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:50:26.311Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:50:26.808Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:50:27.188Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:50:27.397Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:50:27.570Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:50:27.742Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:50:27.908Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:50:28.319Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:50:28.553Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:50:28.717Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:52:17.259Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T11:54:40.195Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"admin","user_id":1,"status":200}
+{"timestamp":"2026-04-18T11:54:48.072Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"user123","user_id":2,"role":"user","status":200}
+{"timestamp":"2026-04-18T11:54:49.354Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"user123","user_id":2,"role":"user","status":200}
+{"timestamp":"2026-04-18T12:05:32.187Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"user123","user_id":2,"status":200}
+{"timestamp":"2026-04-18T12:05:42.347Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:06:00.307Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:06:02.357Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:06:02.965Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:06:03.389Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:08:00.288Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:08:00.932Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:08:01.340Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:28.459Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:29.793Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:30.417Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:30.637Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:30.814Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:30.988Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:31.147Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:31.315Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:31.484Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:31.666Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:31.905Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:46.344Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:46.851Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:47.034Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:47.200Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:47.371Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:47.528Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:50.332Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:51.382Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:09:55.792Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:11:14.422Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:11:15.644Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:11:15.998Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:11:16.170Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:11:16.335Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:11:36.109Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:13:02.898Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:13:03.414Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:13:03.633Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:13:03.803Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T12:13:08.249Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T13:43:14.534Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T13:46:41.851Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T13:58:02.391Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T15:03:38.023Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T15:20:58.507Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-18T15:21:10.228Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T01:24:07.345Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"Jack","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-19T01:24:10.354Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"Jack","user_id":7,"role":"user","status":200}
+{"timestamp":"2026-04-19T01:24:12.412Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"Jack","user_id":7,"role":"user","status":200}
+{"timestamp":"2026-04-19T07:36:03.291Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"admin","user_id":1,"status":200}
+{"timestamp":"2026-04-19T10:24:43.458Z","event_type":"LOGIN_FAILED","endpoint":"/login","src_ip":"::1","username":"user123","status":401,"reason":"Wrong password"}
+{"timestamp":"2026-04-19T10:24:50.495Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"user123","user_id":2,"role":"user","status":200}
+{"timestamp":"2026-04-19T10:25:09.228Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"user123","user_id":2,"status":200}
+{"timestamp":"2026-04-19T10:25:14.992Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:28:25.707Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"admin","user_id":1,"status":200}
+{"timestamp":"2026-04-19T10:28:30.285Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:32:10.364Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:32:13.112Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:33:11.602Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:43:11.333Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:43:22.306Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:44:29.569Z","event_type":"LOGOUT","endpoint":"/logout","src_ip":"::1","username":"admin","user_id":1,"status":200}
+{"timestamp":"2026-04-19T10:44:34.674Z","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:44:37.292Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:49:09.594Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-04-19T10:49:20.398Z","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-07-11 04:30:43.302","event_id":"AUTH-200","severity":"low","user_agent":"python-requests/2.33.1","event_type":"LOGIN_SUCCESS","endpoint":"/login","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-07-11 04:30:43.326","event_id":"TXN-200","severity":"low","user_agent":"python-requests/2.33.1","event_type":"TRANSACTIONS_ACCESSED","endpoint":"/transactions","src_ip":"::1","username":"admin","user_id":1,"role":"admin","status":200}
+{"timestamp":"2026-07-11 04:30:43.365","event_id":"ADMIN-200","severity":"low","user_agent":"python-requests/2.33.1","event_type":"ADMIN_ACCESS","endpoint":"/admin","src_ip":"::1","username":"admin","role":"admin","status":200}
+{"timestamp":"2026-07-11 04:30:43.371","event_id":"THREAT-REPLAY","severity":"high","user_agent":"python-requests/2.33.1","event_type":"TOKEN_REPLAY_DETECTED","endpoint":"/admin","src_ip":"203.0.113.77","issued_ip":"::1","username":"admin","role":"admin","status":200,"reason":"token_used_from_different_ip"}
+{"timestamp":"2026-07-11 04:30:43.371","event_id":"ADMIN-200","severity":"low","user_agent":"python-requests/2.33.1","event_type":"ADMIN_ACCESS","endpoint":"/admin","src_ip":"203.0.113.77","username":"admin","role":"admin","status":200}
