@@ -1,4 +1,4 @@
-# SecureBank — Auth Attack & Detection Lab
+# SecureBank: Auth Attack & Detection Lab
 
 A self-built OAuth2 banking application, deployed to AWS, attacked with real tooling, and monitored end to end — from the application logs and cloud network layer through to SIEM detection in Splunk. Built by one person to learn how authentication attacks work and how they surface across a detection stack.
 
